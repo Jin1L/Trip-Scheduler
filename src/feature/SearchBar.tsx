@@ -1,7 +1,7 @@
 import React from "react";
-import { createStyles, Input, MantineProvider } from "@mantine/core";
+import { createStyles, MantineProvider } from "@mantine/core";
 import { BiSearchAlt2 } from "react-icons/bi";
-
+import { Input } from "@/components/ui/input";
 const useStyle = createStyles(() => ({
   searchBar: {
     display: "flex",

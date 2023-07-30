@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from "./pages/main";
 import MyTrips from "./pages/myTrips";
 import About from "./pages/about"
-
 function App() {
 
   return (

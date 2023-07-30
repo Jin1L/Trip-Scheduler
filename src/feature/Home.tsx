@@ -1,7 +1,6 @@
 import React from "react";
-import Searchbar from "./searchBar";
+import Searchbar from "./SearchBar";
 import { createStyles } from "@mantine/core";
-
 const useStyle = createStyles(() => ({
   home: {
     display: "relative",
@@ -14,8 +13,8 @@ const useStyle = createStyles(() => ({
     marginLeft: -45,
   },
   searchBar: {
-    marginLeft: "6%"
-  }
+    marginLeft: "6%",
+  },
 }));
 
 const Home = () => {
@@ -25,7 +24,9 @@ const Home = () => {
       <div>
         <h2 className="text-white">Make your trips come true</h2>
       </div>
-      <div className={classes.searchBar}><Searchbar/></div>
+      <div className={classes.searchBar}>
+        <Searchbar />
+      </div>
     </div>
   );
 };
