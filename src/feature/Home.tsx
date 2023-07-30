@@ -10,7 +10,7 @@ const Home = () => {
           Make your trips come true
         </h2>
       </div>
-        <div className="flex">
+        <div className="flex h-screen">
           <SaveTrips />
           <Searchbar />
           <ResponseGPT />
