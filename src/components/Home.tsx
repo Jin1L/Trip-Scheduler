@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div className={classes.home}>
       <div>
-        <h2 className={classes.slogan}>Make your trips come true</h2>
+        <h2 className="text-white">Make your trips come true</h2>
       </div>
       <div className={classes.searchBar}><Searchbar/></div>
     </div>
