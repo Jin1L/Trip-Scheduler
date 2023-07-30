@@ -1,28 +1,11 @@
-import { createStyles } from "@mantine/core";
 import Navbar from "../feature/Navbar";
 import Home from "../feature/Home";
-import Background from "./images/wallpaper.jpg";
-
-const useStyle = createStyles(() => ({
-  main: {
-    height: "100vh",
-    textAlign: "center",
-    backgroundImage: `url(${Background})`,
-    backgroundSize: "100%",
-    backgroundRepeat: "no-repeat",
-  },
-
-  content: {
-    padding: 0,
-  },
-}));
 
 function Main() {
-  const { classes } = useStyle();
-  return (
-    <div className={classes.main}>
+return (
+    <div>
       <Navbar />
-      <div className={classes.content}>
+      <div>
         <Home></Home>
       </div>
     </div>
