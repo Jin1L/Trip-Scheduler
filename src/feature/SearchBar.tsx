@@ -1,134 +1,177 @@
-import React from "react";
-import { createStyles, MantineProvider } from "@mantine/core";
-import { BiSearchAlt2 } from "react-icons/bi";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-const useStyle = createStyles(() => ({
-  searchBar: {
-    display: "flex",
-    boxSizing: "border-box",
-    justifyContent: "center",
-    marginLeft: "28.7%",
-    marginTop: "2%",
-    width: "31.4%",
-    backgroundColor: "#ffffff",
-    boxShadow: "0 0 5px hsl(0 0% 78%)",
-    borderRadius: 20,
-    color: "#000",
-  },
-  location: {
-    display: "relative",
-    borderRadius: 20,
-    width: "25%",
-    ":hover": {
-      background: "hsl(0 0% 94%)",
-    },
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 0,
-    marginBottom: 0,
-  },
-  date: {
-    borderRadius: 20,
-    width: "25%",
-    ":hover": {
-      background: "hsl(0 0% 94%)",
-    },
-  },
-  budget: {
-    borderRadius: 20,
-    width: "25%",
-    ":hover": {
-      background: "hsl(0 0% 94%)",
-    },
-  },
-  people: {
-    display: "flex",
-    borderRadius: 20,
-    width: "25%",
-    ":hover": {
-      background: "hsl(0 0% 94%)",
-    },
-  },
-  label: {
-    position: "absolute",
-    fontSize: 11,
-    fontWeight: "bold",
-    textAlign: "left",
-    zIndex: 5,
-    marginLeft: 12.1,
-    marginTop: 7,
-  },
-  iconBox: {
-    position: "absolute",
-    left: "60.6%",
-    top: "25.7%",
-    backgroundColor: "#30a1df80",
-    borderRadius: 20,
-    width: "1.5%",
-    height: "3%",
-    ":hover": {
-      backgroundColor: "#1c94d4a8",
-    },
-  },
-  icon: {
-    marginTop: 5.5,
-  },
-}));
+import { toast } from "@/components/ui/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+
+const FormSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
 
 const Searchbar = () => {
-  const { classes } = useStyle();
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+  }
   return (
-    <>
-      <MantineProvider
-        theme={{
-          components: {
-            Input: {
-              styles: () => ({
-                input: {
-                  borderRadius: 20,
-                  backgroundColor: "none",
-                  ":focus-within": {
-                    outline: "none",
-                  },
-                  border: "none",
-                  ":hover": {
-                    background: "hsl(0 0% 94%)",
-                  },
-                  "::placeholder": {
-                    fontSize: "0.65rem",
-                  },
-                  fontSize: 11,
-                  height: 44,
-                  paddingTop: 12,
-                },
-              }),
-            },
-          },
-        }}
-      >
-        <div className={classes.searchBar}>
-          <div className={classes.location}>
-            <p className={classes.label}>Location</p>
-            <Input placeholder="Where are you going?"></Input>
-          </div>
-          <div className={classes.date}>
-            <p className={classes.label}>Date</p>
-            <Input placeholder="Starting Date"></Input>
-          </div>
-          <div className={classes.budget}>
-            <p className={classes.label}>Budget</p>
-            <Input placeholder="Ending Date"></Input>
-          </div>
-          <div className={classes.people}>
-            <p className={classes.label}>People</p>
-            <Input placeholder="How many people?"></Input>
-            <span className={classes.iconBox}>
-              <BiSearchAlt2 className={classes.icon} />
-            </span>
-          </div>
-        </div>
-      </MantineProvider>
-    </>
+    <div className="p-5 w-1/2 rounded-md border shadow-md">
+      <div className="flex mb-5 ml-56 items-center space-x-2">
+        <Checkbox id="typeStationery" />
+        <label
+          htmlFor="typeStationery"
+          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Stationery
+        </label>
+        <Checkbox id="typeTour" />
+        <label
+          htmlFor="typeTour"
+          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Tour
+        </label>
+      </div>
+      <div>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Transportation" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="apple">Public Transit</SelectItem>
+              <SelectItem value="banana">Rent</SelectItem>
+              <SelectItem value="blueberry">Personal Vechical</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="mt-5">
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Hotel" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="oneStar">One Star</SelectItem>
+              <SelectItem value="twoStar">Two Star</SelectItem>
+              <SelectItem value="threeStar">Three Star</SelectItem>
+              <SelectItem value="fourStar">Four Star</SelectItem>
+              <SelectItem value="fiveStar">Five Star</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="mt-5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <FormControl>
+                    <Input placeholder="ex. Montreal, Canada" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Location you would like to travel
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </div>
+      <div className="mt-5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Budget</FormLabel>
+                  <FormControl>
+                    <Input placeholder="ex. 2000$" {...field} />
+                  </FormControl>
+                  <FormDescription>Budget for your trip</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </div>
+      <div className="mt-5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Traveller</FormLabel>
+                  <FormControl>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Number of travellers" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value="one">1</SelectItem>
+                          <SelectItem value="two">2</SelectItem>
+                          <SelectItem value="three">3</SelectItem>
+                          <SelectItem value="four">4</SelectItem>
+                          <SelectItem value="five">5</SelectItem>
+                          <SelectItem value="six">6</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormDescription>How many travelers?</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </div>
+      <div className="ml-28">
+        <Button className="mt-5 ml-96">Search</Button>
+      </div>
+    </div>
   );
 };
 

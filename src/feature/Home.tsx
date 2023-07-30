@@ -20,11 +20,11 @@ const useStyle = createStyles(() => ({
 const Home = () => {
   const { classes } = useStyle();
   return (
-    <div className={classes.home}>
+    <div className="w-full">
       <div>
-        <h2 className="text-white">Make your trips come true</h2>
+        <h2 className="mb-5 text-black font-semibold text-center text-xl">Make your trips come true</h2>
       </div>
-      <div className={classes.searchBar}>
+      <div className="ml-10">
         <Searchbar />
       </div>
     </div>
