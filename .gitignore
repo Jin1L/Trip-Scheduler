@@ -3,6 +3,9 @@
 #python
 /venv
 
+#package
+package-lock.json
+
 #credentials
 .env
 
