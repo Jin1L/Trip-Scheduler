@@ -1,42 +1,13 @@
 import React from "react";
-import { createStyles } from "@mantine/core";
-
-const useStyle = createStyles(() => ({
-  navbar: {
-    display: "flex",
-    color: "#fff",
-    paddingTop: "2.6vh",
-    marginLeft: "40.5vh",
-  },
-  links: {
-    display: "flex",
-    right: 10,
-    marginLeft: "50vh"
-  },
-  tabs: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 20,
-    textDecoration: "none",
-    marginTop: "4%",
-    marginRight: 12,
-  },
-}));
-
+import NavMenu from "./Navmenu";
 const Navbar = () => {
-  const { classes } = useStyle();
-
   return (
-    <div className={classes.navbar}>
-      <div>
-        <h1>Vacation Scheduler</h1>
-      </div>
-      <div className={classes.links}>
-        <a href="/" className={classes.tabs}>Home</a>
-        <a href="/mytrips" className={classes.tabs}>My Trip</a>
-        <a href="/about" className={classes.tabs}>About</a>
-      </div>
-    </div>
+    <nav className="flex p-6 py-4 bg-gray-100 border-b-4 border-cyan-300 items-center justify-between space-x-6">
+      <h1 className=" font-semibold tracking-tighter text-gray-700 text-xl ">
+        You & I
+      </h1>
+      <NavMenu />
+    </nav>
   );
 };
 

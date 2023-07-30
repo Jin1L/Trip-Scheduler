@@ -5,7 +5,7 @@ function MyTrips() {
   return (
     <div>
       <Navbar />
-      <div></div>
+      <div>My Trip page working...</div>
     </div>
   );
 }
