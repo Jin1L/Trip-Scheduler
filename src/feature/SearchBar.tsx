@@ -45,7 +45,7 @@ const Searchbar = () => {
     });
   }
   return (
-    <div className="p-5 w-1/2 rounded-md border shadow-md">
+    <div className="p-5 w-1/3 rounded-md border shadow-md">
       <div className="flex mb-5 ml-56 items-center space-x-2">
         <Checkbox id="typeStationery" />
         <label
@@ -168,8 +168,8 @@ const Searchbar = () => {
           </form>
         </Form>
       </div>
-      <div className="ml-28">
-        <Button className="mt-5 ml-96">Search</Button>
+      <div className="ml-4">
+        <Button className="mt-5 ml-72">Search</Button>
       </div>
     </div>
   );
