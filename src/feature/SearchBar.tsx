@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { DatePickerWithRange } from "./DatePicker";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -46,7 +47,7 @@ const Searchbar = () => {
   }
   return (
     <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
-      <div className="flex mb-5 ml-56 items-center space-x-2">
+      <div className="mb-5 items-center text-center space-x-2">
         <Checkbox id="typeStationery" />
         <label
           htmlFor="typeStationery"
@@ -62,7 +63,7 @@ const Searchbar = () => {
           Tour
         </label>
       </div>
-      <div>
+      <div className="mt-8">
         <Select>
           <SelectTrigger>
             <SelectValue placeholder="Transportation" />
@@ -168,8 +169,28 @@ const Searchbar = () => {
           </form>
         </Form>
       </div>
-      <div className="ml-4">
-        <Button className="mt-5 ml-72">Search</Button>
+      <div className="mt-5">
+      <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Date</FormLabel>
+                  <FormControl>
+                    <DatePickerWithRange className="mt-2.5"/>
+                  </FormControl>
+                  <FormDescription>When are you travelling?</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </div>
+      <div className="flex justify-end mt-14">
+        <Button className="mt-5">Search</Button>
       </div>
     </div>
   );
