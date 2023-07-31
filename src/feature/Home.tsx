@@ -4,9 +4,9 @@ import Searchbar from "./SearchBar";
 
 const Home = () => {
   return (
-    <div className="w-full">
+    <div className="w-full h-screen">
       <div>
-        <h2 className="mb-5 text-black font-semibold text-center text-xl">
+        <h2 className="my-5 text-black font-semibold text-center text-xl">
           Make your trips come true
         </h2>
       </div>
