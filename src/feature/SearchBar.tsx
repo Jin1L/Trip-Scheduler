@@ -23,18 +23,18 @@ import { toast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-const FormSchema = z.object({
+const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
 });
 
 const Searchbar = () => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof formSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -45,7 +45,7 @@ const Searchbar = () => {
     });
   }
   return (
-    <div className="p-5 w-1/3 rounded-md border shadow-md">
+    <div className="p-5 h-4/5 w-1/3 rounded-md border shadow-md">
       <div className="flex mb-5 ml-56 items-center space-x-2">
         <Checkbox id="typeStationery" />
         <label
