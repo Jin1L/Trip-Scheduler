@@ -2,7 +2,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const ResponseGPT = () => {
   return (
-    <div className="ml-5 w-2/3 h-4/5 border rounded-md shadow-md">
+    <div className="ml-5 w-2/3 h-full border rounded-md shadow-md">
       <ScrollArea className="p-2 h-full w-full">
         Jokester began sneaking into the castle in the middle of the night and
         leaving jokes all over the place: under the king's pillow, in his soup,

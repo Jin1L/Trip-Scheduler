@@ -45,7 +45,7 @@ const Searchbar = () => {
     });
   }
   return (
-    <div className="p-5 h-4/5 w-1/3 rounded-md border shadow-md">
+    <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
       <div className="flex mb-5 ml-56 items-center space-x-2">
         <Checkbox id="typeStationery" />
         <label
