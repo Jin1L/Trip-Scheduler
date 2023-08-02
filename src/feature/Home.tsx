@@ -1,6 +1,6 @@
 import ResponseGPT from "./ResponseGPT";
 import SaveTrips from "./SaveTrips";
-import Searchbar from "./SearchBar";
+import Searchbar from "./SearchSection";
 
 const Home = () => {
   return (
