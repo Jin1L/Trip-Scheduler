@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./pages/main";
-import MyTrips from "./pages/myTrips";
-import About from "./pages/about";
+import QuestionsAnswer from "./pages/qa";
+import Trending from "./pages/trending";
 import { Login } from "./pages/login";
 function App() {
   return (
     <Router>
-    <Routes>
+      <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/mytrips" element={<MyTrips />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/qa" element={<QuestionsAnswer />} />
+        <Route path="/trending" element={<Trending />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
