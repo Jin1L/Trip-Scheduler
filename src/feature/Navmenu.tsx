@@ -17,7 +17,7 @@ export function NavMenu() {
         <NavigationMenuItem>
           <Link to="/">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About
+              Main
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
