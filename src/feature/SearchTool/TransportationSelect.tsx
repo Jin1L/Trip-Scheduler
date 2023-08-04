@@ -1,3 +1,4 @@
+import { useSearchValues } from "@/hooks/useSearchValues";
 import {
     Select,
     SelectContent,
@@ -6,8 +7,17 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import { useState } from "react";
 
 const TransportationSelect = () => {
+  // const { transportation, setTransportation } = useSearchValues()
+  const [ transportation, setTransportation ] = useState("")
+
+  const onChange = () => {
+    // setTransportation(transitType);
+    // console.log(transportation);
+    console.log("hello im here")
+  }
   return (
     <Select>
       <SelectTrigger>
@@ -15,9 +25,9 @@ const TransportationSelect = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="publicTransit">Public Transit</SelectItem>
-          <SelectItem value="rent">Rent</SelectItem>
-          <SelectItem value="personalVehical">Personal Vechical</SelectItem>
+          <SelectItem value="publicTransit" onChange={() => onChange()}>Public Transit</SelectItem>
+          <SelectItem value="rent" onChange={() => onChange()}>Rent</SelectItem>
+          <SelectItem value="personalVehical" onChange={() => onChange()}>Personal Vechical</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

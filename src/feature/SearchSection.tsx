@@ -10,7 +10,7 @@ import TravelType from "./SearchTool/TravelType";
 const Searchbar = () => {
   return (
     <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
-      <div className="mb-5 items-center text-center space-x-2">
+      <div className="font-semibold items-center text-center space-x-2">
         <TravelType />
       </div>
       <div className="mt-8">
