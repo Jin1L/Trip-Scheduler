@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validations/auth";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Navbar from "../feature/Navbar";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../feature/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import {
@@ -26,6 +27,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export const Login = () => {
   const [formPage, setFormPage] = useState<number>(0);
@@ -45,10 +47,18 @@ export const Login = () => {
 
   console.log(form.watch());
 
+  // navigating to main page
+  let navigate = useNavigate();
+  const routeMain = () => {
+    navigate("/");
+  };
+
   function onSubmit(data: LoginInput) {
     alert(JSON.stringify(data, null, 4));
     console.log(data);
+    routeMain();
   }
+
   return (
     <div>
       <Navbar />
@@ -62,9 +72,15 @@ export const Login = () => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
+                className="space-y-3"
               >
-                <div className={cn("space-y-3 ", { hidden: formPage === 1 })}>
+                <motion.div
+                  className={cn("space-y-3 ", {
+                    hidden: formPage === 1,
+                  })}
+                  animate={{ translateX: `-${formPage * 100}%` }}
+                  transition={{ ease: "easeInOut" }}
+                >
                   {/* email  */}
                   <FormField
                     control={form.control}
@@ -117,10 +133,15 @@ export const Login = () => {
                       </FormItem>
                     )}
                   />
-                </div>
+                </motion.div>
 
                 {/* This is for next page */}
-                <div className={cn("space-y-3 ", { hidden: formPage === 0 })}>
+                <motion.div
+                  className={cn("space-y-3", {
+                    hidden: formPage === 0,
+                  })}
+                  animate={{ translateX: `${100 - formPage * 100}%` }}
+                >
                   {/* username */}
                   <FormField
                     control={form.control}
@@ -152,6 +173,7 @@ export const Login = () => {
                         <FormControl>
                           <Input
                             placeholder="Create your password..."
+                            autoComplete="off"
                             {...field}
                           />
                         </FormControl>
@@ -172,6 +194,7 @@ export const Login = () => {
                         <FormControl>
                           <Input
                             placeholder="Confirm your password.."
+                            autoComplete="off"
                             {...field}
                           />
                         </FormControl>
@@ -179,23 +202,24 @@ export const Login = () => {
                       </FormItem>
                     )}
                   />
-                </div>
+                </motion.div>
+
                 <div className="flex gap-2">
                   <Button
-                    className={cn({ hidden: formPage === 0 })}
+                    className={cn("mt-2", { hidden: formPage === 0 })}
                     type="submit"
                   >
                     Submit
                   </Button>
                   <Button
                     type="button"
-                    className={cn("border-[1px] rounded-md", {
+                    className={cn("mt-2 border-[1px] rounded-md", {
                       hidden: formPage === 1,
                     })}
                     variant={"ghost"}
                     size="icon"
                     onClick={() => {
-                      // validation
+                      // validating before moving onto username & passwd
                       form.trigger(["email", "firstName", "lastName"]);
                       const emailState = form.getFieldState("email");
                       const firstNameState = form.getFieldState("firstName");
@@ -214,7 +238,7 @@ export const Login = () => {
                   </Button>
                   <Button
                     type="button"
-                    className={cn("border-[1px] rounded-md", {
+                    className={cn("mt-2 border-[1px] rounded-md", {
                       hidden: formPage === 0,
                     })}
                     size="icon"
