@@ -6,10 +6,17 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+import { useSearchValues } from "@/hooks/useSearchValues";
 
 const HotelSelect = () => {
+  const { setHotel } = useSearchValues()
+
+  const onChange = (mode : string) => {
+    setHotel(mode);
+  }
+  
   return (
-    <Select>
+    <Select onValueChange={onChange}>
       <SelectTrigger>
         <SelectValue placeholder="Hotel" />
       </SelectTrigger>

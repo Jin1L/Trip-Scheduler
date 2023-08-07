@@ -19,6 +19,7 @@ import {
     SelectValue,
   } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { useSearchValues } from "@/hooks/useSearchValues";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -27,6 +28,12 @@ const formSchema = z.object({
 });
 
 const TravellerSelect = () => {
+  const { setTraveller } = useSearchValues()
+
+  const onChange = (mode : string) => {
+    setTraveller(mode);
+  }
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -51,7 +58,7 @@ const TravellerSelect = () => {
                 <FormItem>
                   <FormLabel>Traveller</FormLabel>
                   <FormControl>
-                    <Select>
+                    <Select onValueChange={onChange}>
                       <SelectTrigger>
                         <SelectValue placeholder="Number of travellers" />
                       </SelectTrigger>
