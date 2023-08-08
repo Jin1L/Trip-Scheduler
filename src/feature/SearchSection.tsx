@@ -1,45 +1,3 @@
-// import { Button } from "@/components/ui/button";
-// import TransportationSelect from "./SearchTool/TransportationSelect";
-// import HotelSelect from "./SearchTool/HotelSelect";
-// import LocationInput from "./SearchTool/LocationInput";
-// import ButgetInput from "./SearchTool/BudgetInput";
-// import TravellerSelect from "./SearchTool/TravellerSelect";
-// import TravellingDate from "./SearchTool/Date/TravellingDate";
-// import TravelType from "./SearchTool/TravelType";
-
-// const Searchbar = () => {
-//   return (
-//     <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
-//       <div className="font-semibold items-center text-center space-x-2">
-//         <TravelType />
-//       </div>
-//       <div className="mt-8">
-//         <TransportationSelect />
-//       </div>
-//       <div className="mt-5">
-//         <HotelSelect />
-//       </div>
-//       <div className="mt-5">
-//         <LocationInput />
-//       </div>
-//       <div className="mt-5">
-//         <ButgetInput />
-//       </div>
-//       <div className="mt-5">
-//         <TravellerSelect />
-//       </div>
-//       <div className="mt-5">
-//         <TravellingDate />
-//       </div>
-//       <div className="flex justify-end mt-14">
-//         <Button className="mt-5">Search</Button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Searchbar;
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -61,26 +19,45 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { DatePickerWithRange } from "./SearchTool/Date/DatePicker";
 import { Button } from "@/components/ui/button";
 
+import { useSearchValues } from "@/hooks/useSearchValues";
+
 const formSchema = z.object({
-  transportation: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
+  transportation: z.string(),
   hotel: z.string(),
   location: z.string(),
   budget: z.string(),
   traveller: z.string(),
+  date: z.string().optional(),
+  startDate: z.date().optional(),
+  endDate: z.date().optional(),
 });
 
 const SearchSection = () => {
+  const { date } = useSearchValues();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      transportation: "",
+      hotel: "",
+      location: "",
+      budget: "",
+      traveller: "",
+      startDate: date?.from,
+      endDate: date?.to,
+    },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
+    data.startDate = date?.from;
+    data.endDate = date?.to;
+
     toast({
       title: "You submitted the following values:",
       description: (
@@ -92,6 +69,7 @@ const SearchSection = () => {
   }
   return (
     <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
+      <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -101,7 +79,10 @@ const SearchSection = () => {
               <FormItem>
                 <FormLabel>Transportation</FormLabel>
                 <FormControl>
-                  <Select {...field}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Transportation" />
                     </SelectTrigger>
@@ -132,19 +113,20 @@ const SearchSection = () => {
               <FormItem>
                 <FormLabel>Hotel</FormLabel>
                 <FormControl>
-                  <Select {...field}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder="Transportation" />
+                      <SelectValue placeholder="Hotel" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="publicTransit">
-                          Public Transit
-                        </SelectItem>
-                        <SelectItem value="rent">Rent</SelectItem>
-                        <SelectItem value="personalVehical">
-                          Personal Vechical
-                        </SelectItem>
+                        <SelectItem value="oneStar">One Star</SelectItem>
+                        <SelectItem value="twoStar">Two Star</SelectItem>
+                        <SelectItem value="threeStar">Three Star</SelectItem>
+                        <SelectItem value="fourStar">Four Star</SelectItem>
+                        <SelectItem value="fiveStar">Five Star</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -174,7 +156,7 @@ const SearchSection = () => {
           />
           <FormField
             control={form.control}
-            name="location"
+            name="budget"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Budget</FormLabel>
@@ -189,11 +171,14 @@ const SearchSection = () => {
           <FormField
             control={form.control}
             name="traveller"
-            render={() => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Traveller</FormLabel>
                 <FormControl>
-                  <Select>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Number of travellers" />
                     </SelectTrigger>
@@ -214,25 +199,21 @@ const SearchSection = () => {
               </FormItem>
             )}
           />
-          <div className="relative">
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <DatePickerWithRange className="mt-2.5" />
-                  </FormControl>
-                  <FormDescription>When are you travelling?</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex justify-end mt-14">
-              <Button type="submit">Submit</Button>
-            </div>
-          </div>
+          <FormField
+            control={form.control}
+            name="date"
+            render={() => (
+              <FormItem>
+                <FormLabel>Date</FormLabel>
+                <FormControl>
+                  <DatePickerWithRange className="mt-2.5" />
+                </FormControl>
+                <FormDescription>When are you travelling?</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
         </form>
       </Form>
     </div>

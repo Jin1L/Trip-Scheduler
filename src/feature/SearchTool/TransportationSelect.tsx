@@ -1,24 +1,24 @@
 import { useSearchValues } from "@/hooks/useSearchValues";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const TransportationSelect = () => {
-  const { setTransportation } = useSearchValues()
+  const { setTransportation } = useSearchValues();
 
-  const onChange = (mode : string) => {
+  const onChange = (mode: string) => {
     setTransportation(mode);
-  }
+  };
 
   return (
     <Select onValueChange={(value) => onChange(value)}>
       <SelectTrigger>
-        <SelectValue placeholder="Transportation"/>
+        <SelectValue placeholder="Transportation" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -31,4 +31,4 @@ const TransportationSelect = () => {
   );
 };
 
-export default TransportationSelect
+export default TransportationSelect;

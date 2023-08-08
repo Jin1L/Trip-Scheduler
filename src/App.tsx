@@ -6,7 +6,7 @@ import { Login } from "./pages/login";
 function App() {
   return (
     <Router>
-    <Routes>
+      <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/mytrips" element={<MyTrips />} />
         <Route path="/about" element={<About />} />

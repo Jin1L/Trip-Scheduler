@@ -2,7 +2,7 @@ import Navbar from "../feature/Navbar";
 
 function About() {
   return (
-    <div >
+    <div>
       <Navbar />
       <div>
         <h2>About page working...</h2>

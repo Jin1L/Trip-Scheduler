@@ -10,11 +10,11 @@ const Home = () => {
           Make your trips come true
         </h2>
       </div>
-        <div className="flex" style={{ height: "84vh"}}>
-          <SaveTrips />
-          <SearchSection />
-          <ResponseGPT />
-        </div>
+      <div className="flex" style={{ height: "84vh" }}>
+        <SaveTrips />
+        <SearchSection />
+        <ResponseGPT />
+      </div>
     </div>
   );
 };
