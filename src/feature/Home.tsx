@@ -1,6 +1,6 @@
 import ResponseGPT from "./ResponseGPT";
 import SaveTrips from "./SaveTrips";
-import Searchbar from "./SearchSection";
+import SearchSection from "./SearchSection";
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
       </div>
         <div className="flex" style={{ height: "84vh"}}>
           <SaveTrips />
-          <Searchbar />
+          <SearchSection />
           <ResponseGPT />
         </div>
     </div>
