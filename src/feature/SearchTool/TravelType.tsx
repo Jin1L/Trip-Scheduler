@@ -1,10 +1,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSearchValues } from "@/hooks/useSearchValues";
 
-
 const TravelType = () => {
-  const { checkStation, setCheckStation, checkTour, setCheckTour} = useSearchValues()
-  
+  const { checkStation, setCheckStation, checkTour, setCheckTour } =
+    useSearchValues();
+
   const onClickTour = () => {
     if (checkTour && !checkStation) {
       setCheckTour(false);
@@ -56,4 +56,3 @@ const TravelType = () => {
 };
 
 export default TravelType;
-

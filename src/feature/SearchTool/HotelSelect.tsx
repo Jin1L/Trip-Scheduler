@@ -1,20 +1,20 @@
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useSearchValues } from "@/hooks/useSearchValues";
 
 const HotelSelect = () => {
-  const { setHotel } = useSearchValues()
+  const { setHotel } = useSearchValues();
 
-  const onChange = (mode : string) => {
+  const onChange = (mode: string) => {
     setHotel(mode);
-  }
-  
+  };
+
   return (
     <Select onValueChange={onChange}>
       <SelectTrigger>
@@ -33,4 +33,4 @@ const HotelSelect = () => {
   );
 };
 
-export default HotelSelect
+export default HotelSelect;

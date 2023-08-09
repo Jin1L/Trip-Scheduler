@@ -36,25 +36,24 @@ const ButgetInput = () => {
   }
   return (
     <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
-        control={form.control}
-        name="username"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Budget</FormLabel>
-            <FormControl>
-              <Input placeholder="ex. 2000$" {...field} />
-            </FormControl>
-            <FormDescription>Budget for your trip</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </form>
-  </Form>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Budget</FormLabel>
+              <FormControl>
+                <Input placeholder="ex. 2000$" {...field} />
+              </FormControl>
+              <FormDescription>Budget for your trip</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
   );
 };
 
 export default ButgetInput;
-

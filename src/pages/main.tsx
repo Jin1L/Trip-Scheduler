@@ -2,7 +2,7 @@ import Navbar from "../feature/Navbar";
 import Home from "../feature/Home";
 
 function Main() {
-return (
+  return (
     <div>
       <Navbar />
       <div>
