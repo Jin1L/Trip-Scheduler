@@ -100,7 +100,7 @@ const SearchSection = () => {
                   </Select>
                 </FormControl>
                 <FormDescription>
-                  Transportation would you like to use
+                  Transportation you would like to use
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -199,21 +199,25 @@ const SearchSection = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="date"
-            render={() => (
-              <FormItem>
-                <FormLabel>Date</FormLabel>
-                <FormControl>
-                  <DatePickerWithRange className="mt-2.5" />
-                </FormControl>
-                <FormDescription>When are you travelling?</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
+          <div className="flex">
+            <FormField
+              control={form.control}
+              name="date"
+              render={() => (
+                <FormItem>
+                  <FormLabel>Date</FormLabel>
+                  <FormControl>
+                    <DatePickerWithRange className="mt-2.5" />
+                  </FormControl>
+                  <FormDescription>When are you travelling?</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="w-full ml-52 mt-8">
+              <Button type="submit">Submit</Button>
+            </div>
+          </div>
         </form>
       </Form>
     </div>
