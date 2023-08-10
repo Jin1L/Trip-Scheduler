@@ -4,6 +4,18 @@ import reactRefresh from "@vitejs/plugin-react-refresh";
 import { resolve } from "path";
 export default defineConfig({
   plugins: [reactRefresh()],
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (file) => {
+          return `assets/*.{css}`;
+        },
+        entryFileNames: (file) => {
+          return "assets/*.{js}";
+        },
+      },
+    },
+  },
   resolve: {
     alias: [
       {
