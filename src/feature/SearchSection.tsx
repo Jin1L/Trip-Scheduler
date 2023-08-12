@@ -54,6 +54,29 @@ const SearchSection = () => {
     },
   });
 
+  const sendData = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const response = await fetch(`api/data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        console.log("completed succesfully");
+        return { ok: true, data: null };
+      }
+      else {
+        console.log("not successful")
+      }
+    } catch (error) {
+      console.log("Something went wrong");
+      return { ok: false, error: error };
+    }
+    return { ok: false, error: "Something went wrong" };
+  };
+
   function onSubmit(data: z.infer<typeof formSchema>) {
     data.startDate = date?.from;
     data.endDate = date?.to;
@@ -66,6 +89,8 @@ const SearchSection = () => {
         </pre>
       ),
     });
+
+    sendData(data);
   }
   return (
     <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
