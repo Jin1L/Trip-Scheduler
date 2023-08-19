@@ -56,7 +56,7 @@ const SearchSection = () => {
 
   const sendData = async (data: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch(`api/data`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/gpt`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,12 +66,13 @@ const SearchSection = () => {
       if (response.ok) {
         console.log("completed succesfully");
         return { ok: true, data: null };
-      }
-      else {
-        console.log("not successful")
+      } else {
+        console.log("not successful");
+        console.log(JSON.stringify(data));
       }
     } catch (error) {
       console.log("Something went wrong");
+      console.log(error);
       return { ok: false, error: error };
     }
     return { ok: false, error: "Something went wrong" };
@@ -239,7 +240,7 @@ const SearchSection = () => {
                 </FormItem>
               )}
             />
-            <div className="w-full ml-52 mt-8">
+            <div className="w-full mt-8">
               <Button type="submit">Submit</Button>
             </div>
           </div>
