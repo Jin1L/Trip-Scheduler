@@ -38,7 +38,7 @@ const formSchema = z.object({
 });
 
 const SearchSection = () => {
-  const { date } = useSearchValues();
+  const { date, gptSuggestion, setGptSuggestion } = useSearchValues();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -64,14 +64,14 @@ const SearchSection = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        console.log("completed succesfully");
-        return { ok: true, data: null };
+        const suggestion = await response.text();
+        setGptSuggestion(suggestion)
+        console.log(gptSuggestion)
+        return { ok: true, data: suggestion };
       } else {
-        console.log("not successful");
         console.log(JSON.stringify(data));
       }
     } catch (error) {
-      console.log("Something went wrong");
       console.log(error);
       return { ok: false, error: error };
     }
@@ -94,10 +94,10 @@ const SearchSection = () => {
     sendData(data);
   }
   return (
-    <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
+    <div className="p-5 h-max w-auto rounded-md border shadow-md">
       <Toaster />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="h-max w-full">
           <FormField
             control={form.control}
             name="transportation"
@@ -225,25 +225,24 @@ const SearchSection = () => {
               </FormItem>
             )}
           />
-          <div className="flex">
-            <FormField
-              control={form.control}
-              name="date"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <DatePickerWithRange className="mt-2.5" />
-                  </FormControl>
-                  <FormDescription>When are you travelling?</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="w-full mt-8">
-              <Button type="submit">Submit</Button>
-            </div>
-          </div>
+          <FormField
+            control={form.control}
+            name="date"
+            render={() => (
+              <FormItem>
+                <FormLabel>Date</FormLabel>
+                <FormControl>
+                  <DatePickerWithRange className="mt-2.5" />
+                </FormControl>
+                <FormDescription>When are you travelling?</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" className="mt-10 ml-56">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
