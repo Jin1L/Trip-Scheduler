@@ -22,7 +22,7 @@ export function NavMenu() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link to="/mytrips">
+          <Link to="/qa">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Q&A
             </NavigationMenuLink>
@@ -30,7 +30,7 @@ export function NavMenu() {
         </NavigationMenuItem>
         {/*adding a link as part of nav menu*/}
         <NavigationMenuItem>
-          <Link to="/about">
+          <Link to="/trending">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Trending
             </NavigationMenuLink>
