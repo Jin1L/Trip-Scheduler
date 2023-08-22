@@ -57,4 +57,3 @@ const TravellingDate = () => {
 };
 
 export default TravellingDate;
-
