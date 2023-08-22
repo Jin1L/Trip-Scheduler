@@ -38,7 +38,7 @@ const formSchema = z.object({
 });
 
 const SearchSection = () => {
-  const { date } = useSearchValues();
+  const { date, gptSuggestion, setGptSuggestion } = useSearchValues();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,6 +54,29 @@ const SearchSection = () => {
     },
   });
 
+  const sendData = async (data: z.infer<typeof formSchema>) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/gpt`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        const suggestion = await response.json();
+        setGptSuggestion(suggestion.GPTSuggestion);
+        return { ok: true, data: suggestion };
+      } else {
+        console.log(JSON.stringify(data));
+      }
+    } catch (error) {
+      console.log(error);
+      return { ok: false, error: error };
+    }
+    return { ok: false, error: "Something went wrong" };
+  };
+
   function onSubmit(data: z.infer<typeof formSchema>) {
     data.startDate = date?.from;
     data.endDate = date?.to;
@@ -66,12 +89,14 @@ const SearchSection = () => {
         </pre>
       ),
     });
+
+    sendData(data);
   }
   return (
-    <div className="p-5 h-full w-1/3 rounded-md border shadow-md">
+    <div className="p-5 h-max w-auto rounded-md border shadow-md">
       <Toaster />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="h-max w-full">
           <FormField
             control={form.control}
             name="transportation"
@@ -199,25 +224,24 @@ const SearchSection = () => {
               </FormItem>
             )}
           />
-          <div className="flex">
-            <FormField
-              control={form.control}
-              name="date"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <DatePickerWithRange className="mt-2.5" />
-                  </FormControl>
-                  <FormDescription>When are you travelling?</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="w-full ml-52 mt-8">
-              <Button type="submit">Submit</Button>
-            </div>
-          </div>
+          <FormField
+            control={form.control}
+            name="date"
+            render={() => (
+              <FormItem>
+                <FormLabel>Date</FormLabel>
+                <FormControl>
+                  <DatePickerWithRange className="mt-2.5" />
+                </FormControl>
+                <FormDescription>When are you travelling?</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" className="mt-10 ml-56">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>

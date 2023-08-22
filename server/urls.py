@@ -21,5 +21,6 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", TemplateView.as_view(template_name="base.html"))
+    path("", TemplateView.as_view(template_name="base.html")),
+    path("api/gpt", views.gpt),
 ]
