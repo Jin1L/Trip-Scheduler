@@ -82,4 +82,6 @@ def gpt(request):
         "GPTSuggestion" : data
     }
 
+    print(data)
+
     return Response(msg, status=200)

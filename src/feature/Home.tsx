@@ -11,7 +11,7 @@ const Home = () => {
       </div>
       <div className="flex" style={{ height: "84vh" }}>
         <SearchSection />
-        <ResponseGPT />
+        {/* <ResponseGPT /> */}
       </div>
     </div>
   );

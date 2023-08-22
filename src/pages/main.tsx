@@ -1,9 +1,10 @@
 import Navbar from "../feature/Navbar";
 import Home from "../feature/Home";
+import "./main.css";
 
 function Main() {
   return (
-    <div>
+    <div className="main">
       <Navbar />
       <div>
         <Home></Home>
