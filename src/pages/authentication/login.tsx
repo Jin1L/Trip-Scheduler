@@ -2,11 +2,7 @@
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validations/auth";
-<<<<<<< HEAD
 import { useForm, UseFormReturn } from "react-hook-form";
-=======
-import { useForm } from "react-hook-form";
->>>>>>> main
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../feature/Navbar";
@@ -86,11 +82,7 @@ export const Login = () => {
                   transition={{ ease: "easeInOut" }}
                 >
                   {/* email  */}
-<<<<<<< HEAD
-                  {/* <FormField
-=======
                   <FormField
->>>>>>> main
                     control={form.control}
                     name="email"
                     render={({ field }) => (
@@ -102,11 +94,7 @@ export const Login = () => {
                         <FormMessage />
                       </FormItem>
                     )}
-<<<<<<< HEAD
-                  /> */}
-=======
                   />
->>>>>>> main
 
                   {/* first name */}
                   <FormField
