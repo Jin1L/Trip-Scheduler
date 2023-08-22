@@ -57,11 +57,11 @@ const SearchSection = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      transportation: "",
-      hotel: "",
+      transportation: undefined,
+      hotel: undefined,
       location: "",
       budget: "",
-      traveller: "",
+      traveller: undefined,
       startDate: date?.from,
       endDate: date?.to,
     },
@@ -107,186 +107,204 @@ const SearchSection = () => {
     sendData(data);
   }
   return (
-    <div className="p-5 h-max w-auto rounded-md border shadow-md">
-      <Toaster />
-      <Dialog>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="h-max w-full">
-            <FormField
-              control={form.control}
-              name="transportation"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Transportation</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Transportation" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="publicTransit">
-                            Public Transit
-                          </SelectItem>
-                          <SelectItem value="rent">Rent</SelectItem>
-                          <SelectItem value="personalVehical">
-                            Personal Vechical
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormDescription>
-                    Transportation you would like to use
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="hotel"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Hotel</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Hotel" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="oneStar">One Star</SelectItem>
-                          <SelectItem value="twoStar">Two Star</SelectItem>
-                          <SelectItem value="threeStar">Three Star</SelectItem>
-                          <SelectItem value="fourStar">Four Star</SelectItem>
-                          <SelectItem value="fiveStar">Five Star</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormDescription>
-                    Transportation would you like to use
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Location</FormLabel>
-                  <FormControl>
-                    <Input placeholder="ex. Montreal, Canada" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Location you would like to travel
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="budget"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Budget</FormLabel>
-                  <FormControl>
-                    <Input placeholder="ex. 2000$" {...field} />
-                  </FormControl>
-                  <FormDescription>Budget for your trip</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="traveller"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Traveller</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Number of travellers" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="one">1</SelectItem>
-                          <SelectItem value="two">2</SelectItem>
-                          <SelectItem value="three">3</SelectItem>
-                          <SelectItem value="four">4</SelectItem>
-                          <SelectItem value="five">5</SelectItem>
-                          <SelectItem value="six">6</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormDescription>How many travelers?</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="date"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Date</FormLabel>
-                  <FormControl>
-                    <DatePickerWithRange className="mt-2.5" />
-                  </FormControl>
-                  <FormDescription>When are you travelling?</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <DialogTrigger>
-              <Button type="submit" className="mt-10 ml-56">
-                Submit
-              </Button>
-            </DialogTrigger>
-          </form>
-          <DialogContent className="max-w-4xl">
-            <DialogHeader>
-              <DialogTitle>Trip Recommendation</DialogTitle>
-            </DialogHeader>
-            <DialogDescription className="h-96 w-full">
-              <ScrollArea className="h-full w-full whitespace-pre-line">
-                {loading ? (
-                  <div>
-                    <Alert className="mt-28 ml-44 max-w-lg">
-                      <Loader2 className="flex animate-spin justify-center items-center h-5 w-5 -ml-1"></Loader2>
-                      <AlertTitle>Heads up!</AlertTitle>
-                      <AlertDescription>
-                        We are currently cooking your schedule for the trip!{" "}
-                        <br />
-                        Please be patient!
-                      </AlertDescription>
-                    </Alert>
-                  </div>
-                ) : (
-                  gptSuggestion
-                )}
-              </ScrollArea>
-            </DialogDescription>
-          </DialogContent>
-        </Form>
-      </Dialog>
-    </div>
+    <>
+      <div className="relative mt-56">
+        <h2 className="mb-3 text-black font-semibold text-center text-xl">
+          Make your trips come true
+        </h2>
+        <div className="p-5 h-max w-auto rounded-md border shadow-md">
+          <Toaster />
+          <Dialog>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="h-[400px] w-full grid grid-cols-2 gap-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="transportation"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Transportation</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger className=" placeholder: text-gray-500">
+                            <SelectValue placeholder="Transportation" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="publicTransit">
+                                Public Transit
+                              </SelectItem>
+                              <SelectItem value="rent">Rent</SelectItem>
+                              <SelectItem value="personalVehicle">
+                                Personal vehicle
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription>
+                        Transportation you would like to use
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="hotel"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Hotel</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger className=" placeholder: text-gray-500">
+                            <SelectValue placeholder="Hotel" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="oneStar">One Star</SelectItem>
+                              <SelectItem value="twoStar">Two Star</SelectItem>
+                              <SelectItem value="threeStar">
+                                Three Star
+                              </SelectItem>
+                              <SelectItem value="fourStar">
+                                Four Star
+                              </SelectItem>
+                              <SelectItem value="fiveStar">
+                                Five Star
+                              </SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription>
+                        Transportation would you like to use
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="location"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Location</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ex. Montreal, Canada" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Location you would like to travel
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="budget"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Budget</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ex. 2000$" {...field} />
+                      </FormControl>
+                      <FormDescription>Budget for your trip</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="traveller"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Traveller</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger className=" placeholder: text-gray-500">
+                            <SelectValue placeholder="Number of travellers" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectItem value="one">1</SelectItem>
+                              <SelectItem value="two">2</SelectItem>
+                              <SelectItem value="three">3</SelectItem>
+                              <SelectItem value="four">4</SelectItem>
+                              <SelectItem value="five">5</SelectItem>
+                              <SelectItem value="six">6</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription>How many travelers?</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="date"
+                  render={() => (
+                    <FormItem>
+                      <FormLabel>Date</FormLabel>
+                      <FormControl>
+                        <DatePickerWithRange className="mt-2.5" />
+                      </FormControl>
+                      <FormDescription>
+                        When are you travelling?
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div></div>
+                <DialogTrigger>
+                  <Button type="submit" className="ml-56">
+                    Submit
+                  </Button>
+                </DialogTrigger>
+              </form>
+              <DialogContent className="max-w-4xl">
+                <DialogHeader>
+                  <DialogTitle>Trip Recommendation</DialogTitle>
+                </DialogHeader>
+                <DialogDescription className="h-96 w-full">
+                  <ScrollArea className="h-full w-full whitespace-pre-line">
+                    {loading ? (
+                      <div>
+                        <Alert className="mt-28 ml-44 max-w-lg">
+                          <Loader2 className="flex animate-spin justify-center items-center h-5 w-5 -ml-1"></Loader2>
+                          <AlertTitle>Heads up!</AlertTitle>
+                          <AlertDescription>
+                            We are currently cooking your schedule for the trip!{" "}
+                            <br />
+                            Please be patient!
+                          </AlertDescription>
+                        </Alert>
+                      </div>
+                    ) : (
+                      gptSuggestion
+                    )}
+                  </ScrollArea>
+                </DialogDescription>
+              </DialogContent>
+            </Form>
+          </Dialog>
+        </div>
+      </div>
+    </>
   );
 };
 

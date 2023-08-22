@@ -44,3 +44,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+Attributions to
+
+<a href="https://www.freepik.com/free-vector/silhouette-skyline-illustration_3786386.htm#page=3&query=travel&position=18&from_view=search&track=sph">Image by rawpixel.com</a> on Freepik
+
+for background images.
