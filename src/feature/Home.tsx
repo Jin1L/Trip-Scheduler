@@ -1,6 +1,5 @@
 import ResponseGPT from "./ResponseGPT";
-import SaveTrips from "./SaveTrips";
-import Searchbar from "./SearchSection";
+import SearchSection from "./SearchSection";
 
 const Home = () => {
   return (
@@ -10,11 +9,10 @@ const Home = () => {
           Make your trips come true
         </h2>
       </div>
-        <div className="flex" style={{ height: "84vh"}}>
-          <SaveTrips />
-          <Searchbar />
-          <ResponseGPT />
-        </div>
+      <div className="flex" style={{ height: "84vh" }}>
+        <SearchSection />
+        <ResponseGPT />
+      </div>
     </div>
   );
 };

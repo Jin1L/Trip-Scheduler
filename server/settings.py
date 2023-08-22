@@ -26,12 +26,16 @@ SECRET_KEY = "django-insecure-mqqgj#n#@2pcav63stw^=fpluf$9x55x9u*=6621(8g3#%exlq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "server",
+    "channels",
+    "rest_framework",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,7 +59,7 @@ ROOT_URLCONF = "server.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "build")],
+        "DIRS": [BASE_DIR / "html"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -119,8 +123,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS =[
-    os.path.join(BASE_DIR, "build/static")
+    BASE_DIR / "dist",
+    BASE_DIR / "public",
 ]
+
+STATIC_ROOT = BASE_DIR / "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
