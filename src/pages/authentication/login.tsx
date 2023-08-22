@@ -95,7 +95,6 @@ export const Login = () => {
                       </FormItem>
                     )}
                   />
-
                   {/* first name */}
                   <FormField
                     control={form.control}
@@ -115,7 +114,6 @@ export const Login = () => {
                       </FormItem>
                     )}
                   />
-
                   {/* last name */}
                   <FormField
                     control={form.control}
@@ -134,7 +132,6 @@ export const Login = () => {
                     )}
                   />
                 </motion.div>
-
                 {/* This is for next page */}
                 <motion.div
                   className={cn("space-y-3", {
