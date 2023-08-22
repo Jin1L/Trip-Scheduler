@@ -26,14 +26,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { DatePickerWithRange } from "./SearchTool/Date/DatePicker";
 import { Button } from "@/components/ui/button";
+import { AlertCircle, FileWarning, Terminal, Loader2 } from "lucide-react";
 
 import { useSearchValues } from "@/hooks/useSearchValues";
+import { useState } from "react";
 
 const formSchema = z.object({
   transportation: z.string(),
@@ -49,6 +52,7 @@ const formSchema = z.object({
 const SearchSection = () => {
   const { date, gptSuggestion, setGptSuggestion } = useSearchValues();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,6 +79,7 @@ const SearchSection = () => {
       if (response.ok) {
         const suggestion = await response.json();
         setGptSuggestion(suggestion.GPTSuggestion);
+        setLoading(false);
         return { ok: true, data: suggestion };
       } else {
         console.log(JSON.stringify(data));
@@ -255,13 +260,27 @@ const SearchSection = () => {
               </Button>
             </DialogTrigger>
           </form>
-          <DialogContent>
+          <DialogContent className="max-w-4xl">
             <DialogHeader>
               <DialogTitle>Trip Recommendation</DialogTitle>
             </DialogHeader>
-            <DialogDescription className="h-96">
+            <DialogDescription className="h-96 w-full">
               <ScrollArea className="h-full w-full whitespace-pre-line">
-                {gptSuggestion}
+                {loading ? (
+                  <div>
+                    <Alert className="mt-28 ml-44 max-w-lg">
+                      <Loader2 className="flex animate-spin justify-center items-center h-5 w-5 -ml-1"></Loader2>
+                      <AlertTitle>Heads up!</AlertTitle>
+                      <AlertDescription>
+                        We are currently cooking your schedule for the trip!{" "}
+                        <br />
+                        Please be patient!
+                      </AlertDescription>
+                    </Alert>
+                  </div>
+                ) : (
+                  gptSuggestion
+                )}
               </ScrollArea>
             </DialogDescription>
           </DialogContent>

@@ -1,4 +1,3 @@
-import ResponseGPT from "./ResponseGPT";
 import SearchSection from "./SearchSection";
 
 const Home = () => {
@@ -9,9 +8,8 @@ const Home = () => {
           Make your trips come true
         </h2>
       </div>
-      <div className="flex" style={{ height: "84vh" }}>
+      <div className="flex">
         <SearchSection />
-        {/* <ResponseGPT /> */}
       </div>
     </div>
   );
