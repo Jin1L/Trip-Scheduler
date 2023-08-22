@@ -64,9 +64,8 @@ const SearchSection = () => {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const suggestion = await response.text();
-        setGptSuggestion(suggestion)
-        console.log(gptSuggestion)
+        const suggestion = await response.json();
+        setGptSuggestion(suggestion.GPTSuggestion);
         return { ok: true, data: suggestion };
       } else {
         console.log(JSON.stringify(data));

@@ -9,7 +9,8 @@ _ = load_dotenv(find_dotenv())  # read local .env file
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
-def processInputAI(location: str, start_date: str, end_date: str, budget: str, num_travelers: str):
+def processInputAI(location : str = "Montreal, Canada", start_date : str = "January 1 2024",
+                end_date : str = "January 14 2024", budget : str = "3000$", num_travelers : str = "1"):
     ChatOpenAI.api_key = os.environ["OPENAI_API_KEY"]
 
     # template_string = """Based on the information delimited by triple backticks,
@@ -77,4 +78,8 @@ def processInputAI(location: str, start_date: str, end_date: str, budget: str, n
 def gpt(request):
     data = processInputAI(request.data["location"], request.data["startDate"], request.data["endDate"], request.data["budget"], request.data["traveller"])
     
-    return Response(data, status=200)
+    msg = {
+        "GPTSuggestion" : data
+    }
+
+    return Response(msg, status=200)

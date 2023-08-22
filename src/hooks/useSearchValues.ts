@@ -1,6 +1,5 @@
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import { useState } from "react";
 import { DateRange } from "react-day-picker";
 import { addDays, format } from "date-fns";
 
@@ -16,7 +15,7 @@ export function useSearchValues() {
   const [checkStation, setCheckStation] = useAtom(checkStationAtom);
   const [checkTour, setCheckTour] = useAtom(checkTourAtom);
   const [date, setDate] = useAtom(dateAtom);
-  const [ gptSuggestion, setGptSuggestion ] = useAtom(gptSuggestionAtom);
+  const [gptSuggestion, setGptSuggestion] = useAtom(gptSuggestionAtom);
 
   return {
     checkStation,
