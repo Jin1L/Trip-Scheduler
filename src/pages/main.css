@@ -4,5 +4,8 @@
   background-size: 30%, 30%, 30%;
   background-repeat: no-repeat;
   height: 100vh;
-  background-position: 0% 7%, 103% 107%, 68% 10%;
+  background-position:
+    0% 7%,
+    103% 107%,
+    68% 10%;
 }

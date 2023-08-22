@@ -10,10 +10,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 type FormFieldElementProps = {
-    form: UseFormReturn<>
+  form: UseFormReturn<>;
 };
 
-const FormFieldElement = ({ form, prop} : FormFieldElementProps) => {
+const FormFieldElement = ({ form, prop }: FormFieldElementProps) => {
   return (
     <FormField
       control={form.control}
