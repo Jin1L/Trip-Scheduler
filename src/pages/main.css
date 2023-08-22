@@ -1,6 +1,8 @@
 .main {
-  background-image: url("./wallpaper.png");
-  background-size: 30%;
+  background-image: url("./wallpaper.png"), url("./wallpaper_main.jpg"),
+    url("./wallpaper_main_2.png");
+  background-size: 30%, 30%, 30%;
   background-repeat: no-repeat;
-  background-position: bottom right;
+  height: 100vh;
+  background-position: 0% 7%, 103% 107%, 68% 10%;
 }
