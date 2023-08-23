@@ -33,7 +33,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { DatePickerWithRange } from "./SearchTool/Date/DatePicker";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, FileWarning, Terminal, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { Typewriter } from "react-simple-typewriter";
 
 import { useSearchValues } from "@/hooks/useSearchValues";
 import { useState } from "react";
@@ -295,7 +296,15 @@ const SearchSection = () => {
                         </Alert>
                       </div>
                     ) : (
-                      gptSuggestion
+                      <Typewriter
+                        words={[gptSuggestion]}
+                        loop={1}
+                        cursor
+                        cursorStyle="|"
+                        typeSpeed={5}
+                        deleteSpeed={50}
+                        delaySpeed={1000}
+                      />
                     )}
                   </ScrollArea>
                 </DialogDescription>
