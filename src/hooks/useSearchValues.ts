@@ -1,13 +1,13 @@
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { DateRange } from "react-day-picker";
-import { addDays, format } from "date-fns";
+import { addDays } from "date-fns";
 
 const checkStationAtom = atomWithImmer<boolean>(false);
 const checkTourAtom = atomWithImmer<boolean>(false);
 const dateAtom = atomWithImmer<DateRange | undefined>({
-  from: new Date(2022, 0, 20),
-  to: addDays(new Date(2022, 0, 20), 20),
+  from: new Date(),
+  to: addDays(new Date(), 3),
 });
 const gptSuggestionAtom = atomWithImmer<string>("");
 
