@@ -13,31 +13,6 @@ def processInputAI(location : str = "Montreal, Canada", start_date : str = "Janu
                 end_date : str = "January 14 2024", budget : str = "3000$", num_travelers : str = "1"):
     ChatOpenAI.api_key = os.environ["OPENAI_API_KEY"]
 
-    # template_string = """Based on the information delimited by triple backticks,
-    # generate a detailed recommendation for the trip, including popular attractions, weather conditions,
-    # recommended accommodations, transportation options, and any additional tips that might be need.
-    # Information: ```
-    # Location: {location}
-    # Start Date: {start_date}
-    # End Date: {end_date}
-    # Number of Travelers: {num_travelers}
-    # ```
-    # """
-
-    # template_string_2 = """Based on the information delimited by triple backticks,
-    # generate a detailed recommendation for the trip, including popular attractions,
-    # recommended accommodations, transportation options, and any additional tips that might be need.
-    # Plan the trip from day 1 considering the budget is {budget} and considering the distances between
-    # each location so that the traveller(s) travels in the most efficient way as possible.
-    # Recommend three restaurants per day considering the traveller's location and the hotel that they are going to stay in.
-    # Provide the restaurant's location and name as well as the hotel.
-    # Information: ```
-    # Location: {location}
-    # Start Date: {start_date}
-    # End Date: {end_date}
-    # Number of Travelers: {num_travelers}
-    # """
-
     example_prompt = """
     Based on the information given in the end, generate a detailed recommendation for the trip,
     including popular attractions, recommended accommodations, transportation options, and any additional tips that
