@@ -132,16 +132,16 @@ const SearchSection = () => {
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger className=" placeholder: text-gray-500">
+                          <SelectTrigger>
                             <SelectValue placeholder="Transportation" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="publicTransit">
+                              <SelectItem value="public transit">
                                 Public Transit
                               </SelectItem>
                               <SelectItem value="rent">Rent</SelectItem>
-                              <SelectItem value="personalVehicle">
+                              <SelectItem value="personal vehicle">
                                 Personal vehicle
                               </SelectItem>
                             </SelectGroup>
@@ -166,20 +166,20 @@ const SearchSection = () => {
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger className=" placeholder: text-gray-500">
+                          <SelectTrigger>
                             <SelectValue placeholder="Hotel" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectItem value="oneStar">One Star</SelectItem>
-                              <SelectItem value="twoStar">Two Star</SelectItem>
-                              <SelectItem value="threeStar">
+                              <SelectItem value="one star">One Star</SelectItem>
+                              <SelectItem value="two star">Two Star</SelectItem>
+                              <SelectItem value="three star">
                                 Three Star
                               </SelectItem>
-                              <SelectItem value="fourStar">
+                              <SelectItem value="four star">
                                 Four Star
                               </SelectItem>
-                              <SelectItem value="fiveStar">
+                              <SelectItem value="five star">
                                 Five Star
                               </SelectItem>
                             </SelectGroup>
@@ -234,7 +234,7 @@ const SearchSection = () => {
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger className=" placeholder: text-gray-500">
+                          <SelectTrigger>
                             <SelectValue placeholder="Number of travellers" />
                           </SelectTrigger>
                           <SelectContent>
