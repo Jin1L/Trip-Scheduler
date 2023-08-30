@@ -7,7 +7,8 @@ from dotenv import load_dotenv, find_dotenv
 
 _ = load_dotenv(find_dotenv())  # read local .env file
 from langchain.chat_models import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from langchain.schema import SystemMessage
 
 def processInputAI(transportation: str = "public transit", location : str = "Montreal, Canada", start_date : str = "January 1 2024",
                 end_date : str = "January 14 2024", budget : str = "3000$", num_travelers : str = "1"):
@@ -32,12 +33,19 @@ def processInputAI(transportation: str = "public transit", location : str = "Mon
 
     llm = ChatOpenAI(
         temperature=0.0,
-        model="gpt-3.5-turbo-16k",
+        model="gpt-3.5-turbo-16k"
     )
-    prompt_template = ChatPromptTemplate.from_template(template=example_prompt)
+
+    template = ChatPromptTemplate.from_messages(
+        [
+            SystemMessage(content="You are a helpful travel agency assistant that will inform the user with precise information of the instruction received. "),
+            SystemMessage(content="Do not forget to include detailed explanations on how users can move accordingly based on given transportation"),
+            HumanMessagePromptTemplate.from_template(template=example_prompt)
+        ]
+    )
 
     # to modify prompt and pass user input
-    input_prompt = prompt_template.format_messages(
+    input_prompt = template.format_messages(
         location=location,
         start_date=start_date,
         end_date=end_date,
@@ -45,7 +53,7 @@ def processInputAI(transportation: str = "public transit", location : str = "Mon
         num_travelers=num_travelers,
         transportation=transportation
     )
-
+    print(f"This is the final prompt:\n {input_prompt}")
     # turn into chat response
     response = llm(input_prompt).content
     return response

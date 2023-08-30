@@ -22,6 +22,13 @@ export function NavMenu() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
+          <Link to="/history">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              History
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <Link to="/qa">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Q&A
