@@ -36,13 +36,13 @@ export function NavMenu() {
           </Link>
         </NavigationMenuItem>
         {/*adding a link as part of nav menu*/}
-        <NavigationMenuItem>
+        {/* <NavigationMenuItem>
           <Link to="/trending">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Trending
             </NavigationMenuLink>
           </Link>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         <NavigationMenuItem>
           <Link to="/login">

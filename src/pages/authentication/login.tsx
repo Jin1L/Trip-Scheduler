@@ -2,16 +2,14 @@
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validations/auth";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../feature/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft } from "lucide-react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,20 +26,21 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 
 export const Login = () => {
-  const [formPage, setFormPage] = useState<number>(0);
+  const [formPage] = useState<number>(0);
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userPassword, setUserPassword] = useState<string>("");
+
   type LoginInput = z.infer<typeof loginSchema>;
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      firstName: "",
-      lastName: "",
-      username: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -53,11 +52,17 @@ export const Login = () => {
     navigate("/");
   };
 
-  function onSubmit(data: LoginInput) {
-    alert(JSON.stringify(data, null, 4));
-    console.log(data);
+  const LogIn = (e: any) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, userEmail, userPassword)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        alert("Account does not exist or invalid password");
+      });
     routeMain();
-  }
+  };
 
   return (
     <div>
@@ -65,15 +70,12 @@ export const Login = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <Card className="w-[350px]">
           <CardHeader className="items-center pb-4">
-            <CardTitle className="mb-1">Sign up</CardTitle>
-            <CardDescription>Start the journey with us here.</CardDescription>
+            <CardTitle className="mb-1">Log In</CardTitle>
+            <CardDescription>Continue the journey with us here.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-3"
-              >
+              <form onSubmit={form.handleSubmit(LogIn)} className="space-y-3">
                 <motion.div
                   className={cn("space-y-3 ", {
                     hidden: formPage === 1,
@@ -87,75 +89,16 @@ export const Login = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-black">email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter your email..." {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  {/* first name */}
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className=" text-black">
-                          first name
-                        </FormLabel>
+                        <FormLabel className="text-black">Email</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Enter your user name..."
+                            placeholder="Enter your email..."
                             {...field}
+                            value={userEmail}
+                            onChange={(e) => setUserEmail(e.target.value)}
                           />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  {/* last name */}
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-black">last name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your last name..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </motion.div>
-                {/* This is for next page */}
-                <motion.div
-                  className={cn("space-y-3", {
-                    hidden: formPage === 0,
-                  })}
-                  animate={{ translateX: `${100 - formPage * 100}%` }}
-                >
-                  {/* username */}
-                  <FormField
-                    control={form.control}
-                    name="username"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-black">username</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Create your username..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                        <FormDescription>
-                          This is your public display name
-                        </FormDescription>
                       </FormItem>
                     )}
                   />
@@ -166,33 +109,14 @@ export const Login = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-black">password</FormLabel>
+                        <FormLabel className="text-black">Password</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Create your password..."
                             autoComplete="off"
                             {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* confirm password */}
-                  <FormField
-                    control={form.control}
-                    name="confirmPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-black">
-                          *confirm password
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Confirm your password.."
-                            autoComplete="off"
-                            {...field}
+                            value={userPassword}
+                            onChange={(e) => setUserPassword(e.target.value)}
+                            placeholder="Password"
                           />
                         </FormControl>
                         <FormMessage />
@@ -200,49 +124,30 @@ export const Login = () => {
                     )}
                   />
                 </motion.div>
+                <div className="flex mt-2 mr-1 justify-end">
+                  <p className="flex text-xs gap-x-2">
+                    You don't have an account?{" "}
+                    <Link className="flex text-xs underline" to="/signup">
+                      Sign Up
+                    </Link>
+                  </p>
+                </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 justify-end">
                   <Button
-                    className={cn("mt-2", { hidden: formPage === 0 })}
+                    className={cn({ hidden: formPage === 1 })}
                     type="submit"
-                  >
-                    Submit
-                  </Button>
-                  <Button
-                    type="button"
-                    className={cn("mt-2 border-[1px] rounded-md", {
-                      hidden: formPage === 1,
-                    })}
-                    variant={"ghost"}
-                    size="icon"
                     onClick={() => {
-                      // validating before moving onto username & passwd
-                      form.trigger(["email", "firstName", "lastName"]);
+                      // validating before logging in
+                      form.trigger(["email", "password"]);
                       const emailState = form.getFieldState("email");
-                      const firstNameState = form.getFieldState("firstName");
-                      const lastNameState = form.getFieldState("lastName");
-
+                      const passwordState = form.getFieldState("password");
                       if (!emailState.isDirty || emailState.invalid) return;
-                      if (!firstNameState.isDirty || firstNameState.invalid)
+                      if (!passwordState.isDirty || passwordState.invalid)
                         return;
-                      if (!lastNameState.isDirty || lastNameState.invalid)
-                        return;
-
-                      setFormPage(1);
                     }}
                   >
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    className={cn("mt-2 border-[1px] rounded-md", {
-                      hidden: formPage === 0,
-                    })}
-                    size="icon"
-                    variant={"ghost"}
-                    onClick={() => setFormPage(0)}
-                  >
-                    <ArrowLeft className="w-4 h-4" />
+                    Submit
                   </Button>
                 </div>
               </form>

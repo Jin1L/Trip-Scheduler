@@ -84,14 +84,14 @@ def processInputAI(transportation: str = "public transit", location : str = "Mon
     including popular attractions, recommended accommodations, and any additional tips that
     might be needed. Plan the trip from day 1 considering the budget is {budget} (consider using about 80%) and considering
     the distances between each location and their method of transportation, which is {transportation}, so that the traveler(s) travels in the most efficient way possible.
-    Give the detail information about how the traveller(s) will use their choice of transportation to get to each destination by giving the accurate distance and the route.
+    Give the detail information about how the traveler(s) will use their choice of transportation to get to each destination by giving the accurate distance and the route.
     Recommend three restaurants per day considering the traveler's location with their location and name.
-    List at least 3 different hotels in the beginning of the recommandation that are not temporarily closed
+    List at least 3 different hotels in the beginning of the recommendation that are not temporarily closed
     with their name, location, official website link and Google rating. 
     If the means of transportation is renting a car, make sure to include two different rental companies that are available near the location
-    right after listing the hotel with their offical website and Google rating.
-    Generate a recommandation that is similar to the following example. However, improve it with using the exact name of the hotel in the planning.
-    Also, consider their transportation on the planning which means that if they choose renting or personal vechical, they could cover more distance in their trip than the traveller(s)
+    right after listing the hotel with their official website and Google rating.
+    Generate a recommendation that is similar to the following example. However, improve it with using the exact name of the hotel in the planning.
+    Also, consider their transportation on the planning which means that if they choose renting or personal vehicle, they could cover more distance in their trip than the traveler(s)
     who will be using public transportation. If they choose public transit, make sure that you provide the routes using buses and metro strictly. Public transit does not include any taxi or riding services.
     Example : {example_prompt}
     ======================================================
