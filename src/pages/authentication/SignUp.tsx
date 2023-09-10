@@ -68,15 +68,15 @@ export const SignUp = () => {
         alert("This account already exists with the email. Unable to create an account.")
       });
       
-      // updateProfile(auth.currentUser, {
-      //   displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-      // }).then(() => {
-      //   // Profile updated!
-      //   // ...
-      // }).catch((error) => {
-      //   // An error occurred
-      //   // ...
-      // });
+      updateProfile(auth.currentUser, {
+        displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+      }).then(() => {
+        // Profile updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
       routeMain();
   };
 
@@ -121,7 +121,7 @@ export const SignUp = () => {
                     )}
                   />
                   {/* first name */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="firstName"
                     render={({ field }) => (
@@ -138,9 +138,9 @@ export const SignUp = () => {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
                   {/* last name */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="lastName"
                     render={({ field }) => (
@@ -155,7 +155,7 @@ export const SignUp = () => {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
                 </motion.div>
                 {/* This is for next page */}
                 <motion.div
@@ -165,7 +165,7 @@ export const SignUp = () => {
                   animate={{ translateX: `${100 - formPage * 100}%` }}
                 >
                   {/* username */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="username"
                     render={({ field }) => (
@@ -183,7 +183,7 @@ export const SignUp = () => {
                         </FormDescription>
                       </FormItem>
                     )}
-                  />
+                  /> */}
 
                   {/* password */}
                   <FormField
