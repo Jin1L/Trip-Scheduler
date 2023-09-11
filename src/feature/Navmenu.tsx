@@ -10,47 +10,45 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
+interface NavMenuProps {
+  path: string;
+  itemName: string;
+}
+
+const navItems: NavMenuProps[] = [
+  {
+    path: "/",
+    itemName: "Main",
+  },
+  {
+    path: "/history",
+    itemName: "History",
+  },
+  {
+    path: "/about",
+    itemName: "About",
+  },
+  {
+    path: "/login",
+    itemName: "Login",
+  },
+];
+
 export function NavMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link to="/">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Main
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link to="/history">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              History
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link to="/qa">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Q&A
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        {/*adding a link as part of nav menu*/}
-        {/* <NavigationMenuItem>
-          <Link to="/trending">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Trending
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem> */}
-
-        <NavigationMenuItem>
-          <Link to="/login">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Login
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {navItems.map((navItem) => {
+          return (
+            <NavigationMenuItem>
+              <Link to={navItem.path}>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  {navItem.itemName}
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          );
+        })}
       </NavigationMenuList>
     </NavigationMenu>
   );

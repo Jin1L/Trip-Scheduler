@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./pages/main";
-import QuestionsAnswer from "./pages/qa";
-// import Trending from "./pages/trending";
+import About from "./pages/about";
 import { SignUp } from "./pages/authentication/SignUp";
 import { Login } from "./pages/authentication/Login";
 import History from "./pages/history";
@@ -21,8 +20,8 @@ const routes: RouteProps[] = [
     page: <History />,
   },
   {
-    path: "/qa",
-    page: <QuestionsAnswer />,
+    path: "/about",
+    page: <About />,
   },
   {
     path: "/login",
@@ -47,11 +46,6 @@ function App() {
             ></Route>
           );
         })}
-        {/* <Route path="/" element={<Main />} />
-        <Route path="/history" element={<History />}></Route>
-        <Route path="/qa" element={<QuestionsAnswer />} />
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<SignUp />} /> */}
       </Routes>
     </Router>
   );

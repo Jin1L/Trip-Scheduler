@@ -29,22 +29,26 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { auth } from "@/firebase";
-import { createUserWithEmailAndPassword, updateCurrentUser, updateEmail, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateCurrentUser,
+  updateEmail,
+  updateProfile,
+} from "firebase/auth";
+import Alert from "@/feature/Alert";
 
 export const SignUp = () => {
   const [formPage, setFormPage] = useState<number>(0);
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   type signUpInput = z.infer<typeof signUpSchema>;
 
   const form = useForm<signUpInput>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
-      firstName: "",
-      lastName: "",
-      username: "",
+      // firstName: "",
+      // lastName: "",
+      // username: "",
       password: "",
       confirmPassword: "",
     },
@@ -58,26 +62,39 @@ export const SignUp = () => {
     navigate("/");
   };
 
-  const signUp = (e: any) => {
-    e.preventDefault();
-    createUserWithEmailAndPassword(auth, userEmail, userPassword)
+  const signUp = (data: signUpInput, e?: React.BaseSyntheticEvent) => {
+    e?.preventDefault();
+    createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        console.log(userCredential);
+        const user = userCredential.user;
+        console.log(user);
+        routeMain();
+        // Alert({
+        //   message: "Your account has been created! Welcome to WanderPlan.",
+        //   alertTitle: "Congratulations!",
+        //   type: "success",
+        // });
       })
-      .catch((error) => {
-        alert("This account already exists with the email. Unable to create an account.")
+      .catch((error) => {        
+        // Alert({
+        //   message:
+        //     "This account already exists with the email. Unable to create an account.",
+        //   alertTitle: "Error",
+        //   type: "error",
+        // });
+        alert(error.message);
+
       });
-      
-      updateProfile(auth.currentUser, {
-        displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-      }).then(() => {
-        // Profile updated!
-        // ...
-      }).catch((error) => {
-        // An error occurred
-        // ...
-      });
-      routeMain();
+
+    // updateProfile(auth.currentUser, {
+    //   displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+    // }).then(() => {
+    //   // Profile updated!
+    //   // ...
+    // }).catch((error) => {
+    //   // An error occurred
+    //   // ...
+    // });
   };
 
   return (
@@ -91,10 +108,7 @@ export const SignUp = () => {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(signUp)}
-                className="space-y-3"
-              >
+              <form onSubmit={form.handleSubmit(signUp)} className="space-y-3">
                 <motion.div
                   className={cn("space-y-3 ", {
                     hidden: formPage === 1,
@@ -110,10 +124,12 @@ export const SignUp = () => {
                       <FormItem>
                         <FormLabel className="text-black">email</FormLabel>
                         <FormControl>
-                          <Input 
-                          placeholder="Enter your email..." {...field} 
-                          value={userEmail}
-                          onChange={(e) => setUserEmail(e.target.value)}
+                          <Input
+                            {...form.register("email")}
+                            placeholder="Enter your email..."
+                            {...field}
+                            // value={userEmail}
+                            // onChange={(e) => setUserEmail(e.target.value)}
                           />
                         </FormControl>
                         <FormMessage />
@@ -194,8 +210,10 @@ export const SignUp = () => {
                         <FormLabel className="text-black">password</FormLabel>
                         <FormControl>
                           <Input
+                            {...form.register("password")}
                             placeholder="Create your password..."
                             autoComplete="off"
+                            type="password"
                             {...field}
                           />
                         </FormControl>
@@ -215,8 +233,10 @@ export const SignUp = () => {
                         </FormLabel>
                         <FormControl>
                           <Input
+                            {...form.register("confirmPassword")}
                             placeholder="Confirm your password.."
                             autoComplete="off"
+                            type="password"
                             {...field}
                           />
                         </FormControl>
@@ -242,16 +262,16 @@ export const SignUp = () => {
                     size="icon"
                     onClick={() => {
                       // validating before moving onto username & passwd
-                      form.trigger(["email", "firstName", "lastName"]);
+                      form.trigger(["email"]);
                       const emailState = form.getFieldState("email");
-                      const firstNameState = form.getFieldState("firstName");
-                      const lastNameState = form.getFieldState("lastName");
+                      // const firstNameState = form.getFieldState("firstName");
+                      // const lastNameState = form.getFieldState("lastName");
 
                       if (!emailState.isDirty || emailState.invalid) return;
-                      if (!firstNameState.isDirty || firstNameState.invalid)
-                        return;
-                      if (!lastNameState.isDirty || lastNameState.invalid)
-                        return;
+                      // if (!firstNameState.isDirty || firstNameState.invalid)
+                      //   return;
+                      // if (!lastNameState.isDirty || lastNameState.invalid)
+                      //   return;
 
                       setFormPage(1);
                     }}
@@ -274,7 +294,7 @@ export const SignUp = () => {
             </Form>
           </CardContent>
         </Card>
-      </div>
+      A</div>
     </div>
   );
 };

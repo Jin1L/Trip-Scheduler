@@ -31,8 +31,6 @@ import { auth } from "@/firebase";
 
 export const Login = () => {
   const [formPage] = useState<number>(0);
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [userPassword, setUserPassword] = useState<string>("");
 
   type LoginInput = z.infer<typeof loginSchema>;
 
@@ -52,14 +50,15 @@ export const Login = () => {
     navigate("/");
   };
 
-  const LogIn = (e: any) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, userEmail, userPassword)
+  const LogIn = (data: LoginInput, e?: React.BaseSyntheticEvent) => {
+    e?.preventDefault();
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        console.log(userCredential);
+        const user = userCredential.user;
+        console.log(user);
       })
       .catch((error) => {
-        alert("Account does not exist or invalid password");
+        alert("Invalid password or Account does not exist.");
       });
     routeMain();
   };
@@ -92,10 +91,9 @@ export const Login = () => {
                         <FormLabel className="text-black">Email</FormLabel>
                         <FormControl>
                           <Input
+                            {...form.register("email")}
                             placeholder="Enter your email..."
                             {...field}
-                            value={userEmail}
-                            onChange={(e) => setUserEmail(e.target.value)}
                           />
                         </FormControl>
                         <FormMessage />
@@ -112,11 +110,11 @@ export const Login = () => {
                         <FormLabel className="text-black">Password</FormLabel>
                         <FormControl>
                           <Input
+                            {...form.register("password")}
                             autoComplete="off"
                             {...field}
-                            value={userPassword}
-                            onChange={(e) => setUserPassword(e.target.value)}
                             placeholder="Password"
+                            type="password"
                           />
                         </FormControl>
                         <FormMessage />
