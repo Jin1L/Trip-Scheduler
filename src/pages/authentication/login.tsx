@@ -28,12 +28,14 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
+import MyAlert, { MsgTypes, AlertMessages } from "@/feature/MyAlert";
 
 export const Login = () => {
   const [formPage] = useState<number>(0);
+  const [alertMsg, setAlertMsg] = useState<MsgTypes>("success");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   type LoginInput = z.infer<typeof loginSchema>;
-
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -52,15 +54,19 @@ export const Login = () => {
 
   const LogIn = (data: LoginInput, e?: React.BaseSyntheticEvent) => {
     e?.preventDefault();
+    setShowAlert(true);
+    // console.log(showAlert);
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
       })
       .catch((error) => {
-        alert("Invalid password or Account does not exist.");
+        setAlertMsg("error");
+        // console.log(error.message);
+        // alert(error.message);
       });
-    routeMain();
+    // routeMain();
   };
 
   return (
@@ -70,7 +76,9 @@ export const Login = () => {
         <Card className="w-[350px]">
           <CardHeader className="items-center pb-4">
             <CardTitle className="mb-1">Log In</CardTitle>
-            <CardDescription>Continue the journey with us here.</CardDescription>
+            <CardDescription>
+              Continue the journey with us here.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -153,6 +161,13 @@ export const Login = () => {
           </CardContent>
         </Card>
       </div>
+      {showAlert && (
+        <MyAlert
+          message={AlertMessages[alertMsg].message}
+          alertTitle={AlertMessages[alertMsg].alertTitle}
+          type={AlertMessages[alertMsg].type as MsgTypes}
+        ></MyAlert>
+      )}
     </div>
   );
 };

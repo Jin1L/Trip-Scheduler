@@ -35,11 +35,12 @@ import {
   updateEmail,
   updateProfile,
 } from "firebase/auth";
-import Alert from "@/feature/Alert";
+import MyAlert, { MsgTypes, AlertMessages } from "@/feature/MyAlert";
 
 export const SignUp = () => {
   const [formPage, setFormPage] = useState<number>(0);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMsg, setAlertMsg] = useState<MsgTypes>("success");
+
   type signUpInput = z.infer<typeof signUpSchema>;
 
   const form = useForm<signUpInput>({
@@ -63,27 +64,49 @@ export const SignUp = () => {
   };
 
   const signUp = (data: signUpInput, e?: React.BaseSyntheticEvent) => {
-    e?.preventDefault();
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        routeMain();
+        // routeMain();
+        // setShowAlert(true);
+
+        // if (alertMsg) {
+        //   return (
+        //     <MyAlert
+        //       message={AlertMessages[alertMsg].message}
+        //       alertTitle={AlertMessages[alertMsg].alertTitle}
+        //       type={AlertMessages[alertMsg].type as MsgTypes}
+        //     />
+        //   );
+        // }
+
         // Alert({
         //   message: "Your account has been created! Welcome to WanderPlan.",
         //   alertTitle: "Congratulations!",
         //   type: "success",
         // });
       })
-      .catch((error) => {        
+      .catch((error) => {
+        // setShowAlert(true);
+        setAlertMsg("error");
+
+        // if (showAlert) {
+        //   return (
+        //     <MyAlert
+        //       message={AlertMessages[alertMsg].message}
+        //       alertTitle={AlertMessages[alertMsg].alertTitle}
+        //       type={AlertMessages[alertMsg].type as MsgTypes}
+        //     ></MyAlert>
+        //   );
+        // }
         // Alert({
         //   message:
         //     "This account already exists with the email. Unable to create an account.",
         //   alertTitle: "Error",
         //   type: "error",
         // });
-        alert(error.message);
-
+        // alert(error.message);
       });
 
     // updateProfile(auth.currentUser, {
@@ -95,6 +118,7 @@ export const SignUp = () => {
     //   // An error occurred
     //   // ...
     // });
+    e?.preventDefault();
   };
 
   return (
@@ -294,7 +318,14 @@ export const SignUp = () => {
             </Form>
           </CardContent>
         </Card>
-      A</div>
+      </div>
+      {alertMsg && (
+        <MyAlert
+          message={AlertMessages[alertMsg].message}
+          alertTitle={AlertMessages[alertMsg].alertTitle}
+          type={AlertMessages[alertMsg].type as MsgTypes}
+        ></MyAlert>
+      )}
     </div>
   );
 };
