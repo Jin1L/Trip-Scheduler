@@ -26,14 +26,14 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase";
+import { LogIn } from "@/firebase/firebase.service";
 import MyAlert, { MsgTypes, AlertMessages } from "@/feature/MyAlert";
 
 export const Login = () => {
   const [formPage] = useState<number>(0);
   const [alertMsg, setAlertMsg] = useState<MsgTypes>("success");
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   type LoginInput = z.infer<typeof loginSchema>;
   const form = useForm<LoginInput>({
@@ -44,29 +44,23 @@ export const Login = () => {
     },
   });
 
-  console.log(form.watch());
-
-  // navigating to main page
-  let navigate = useNavigate();
-  const routeMain = () => {
-    navigate("/");
-  };
-
-  const LogIn = (data: LoginInput, e?: React.BaseSyntheticEvent) => {
+  const LogInAction = async (
+    data: LoginInput,
+    e?: React.BaseSyntheticEvent
+  ) => {
     e?.preventDefault();
     setShowAlert(true);
-    // console.log(showAlert);
-    signInWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        setAlertMsg("error");
-        // console.log(error.message);
-        // alert(error.message);
-      });
-    // routeMain();
+
+    try {
+      const userCredential = await LogIn(data.email, data.password);
+      console.log(userCredential.user);
+      // navigate back to main page
+      navigate("/", { replace: true });
+    } catch (error) {
+      setAlertMsg("error");
+      // console.log(error.message);
+      // alert(error.message);
+    }
   };
 
   return (
@@ -82,7 +76,10 @@ export const Login = () => {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(LogIn)} className="space-y-3">
+              <form
+                onSubmit={form.handleSubmit(LogInAction)}
+                className="space-y-3"
+              >
                 <motion.div
                   className={cn("space-y-3 ", {
                     hidden: formPage === 1,

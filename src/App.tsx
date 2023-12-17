@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./pages/main";
 import About from "./pages/about";
 import { SignUp } from "./pages/authentication/SignUp";
-import { Login } from "./pages/authentication/Login";
+import { Login } from "./pages/authentication/login";
 import History from "./pages/history";
-
+import AuthRoute from "./components/AuthRoute";
 interface RouteProps {
   path: string;
   page: JSX.Element;
@@ -38,13 +38,23 @@ function App() {
     <Router>
       <Routes>
         {routes.map((route) => {
-          return (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={route.page}
-            ></Route>
-          );
+          if (route.path === "/history") {
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<AuthRoute>{route.page}</AuthRoute>}
+              ></Route>
+            );
+          } else {
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.page}
+              ></Route>
+            );
+          }
         })}
       </Routes>
     </Router>

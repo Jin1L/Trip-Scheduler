@@ -40,12 +40,13 @@ export function NavMenu() {
       <NavigationMenuList>
         {navItems.map((navItem) => {
           return (
-            <NavigationMenuItem>
-              <Link to={navItem.path}>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {navItem.itemName}
-                </NavigationMenuLink>
-              </Link>
+            <NavigationMenuItem key={navItem.path}>
+              <NavigationMenuLink
+                href={navItem.path}
+                className={navigationMenuTriggerStyle()}
+              >
+                {navItem.itemName}
+              </NavigationMenuLink>
             </NavigationMenuItem>
           );
         })}

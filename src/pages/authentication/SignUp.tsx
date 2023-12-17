@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { auth } from "@/firebase";
+import { auth } from "@/firebase/firebase";
 import {
   createUserWithEmailAndPassword,
   updateCurrentUser,
@@ -40,6 +40,7 @@ import MyAlert, { MsgTypes, AlertMessages } from "@/feature/MyAlert";
 export const SignUp = () => {
   const [formPage, setFormPage] = useState<number>(0);
   const [alertMsg, setAlertMsg] = useState<MsgTypes>("success");
+  const navigate = useNavigate();
 
   type signUpInput = z.infer<typeof signUpSchema>;
 
@@ -57,17 +58,14 @@ export const SignUp = () => {
 
   console.log(form.watch());
 
-  // navigating to main page
-  let navigate = useNavigate();
-  const routeMain = () => {
-    navigate("/");
-  };
-
   const signUp = (data: signUpInput, e?: React.BaseSyntheticEvent) => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        // navigate to login page once user is signed up
+        navigate("/login", { replace: true });
+
         // routeMain();
         // setShowAlert(true);
 
