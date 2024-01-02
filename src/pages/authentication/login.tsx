@@ -26,16 +26,16 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase";
+import { LogIn } from "@/firebase/firebase.service";
+import MyAlert, { MsgTypes, AlertMessages } from "@/feature/MyAlert";
 
 export const Login = () => {
   const [formPage] = useState<number>(0);
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [userPassword, setUserPassword] = useState<string>("");
+  const [alertMsg, setAlertMsg] = useState<MsgTypes>("success");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   type LoginInput = z.infer<typeof loginSchema>;
-
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -44,24 +44,23 @@ export const Login = () => {
     },
   });
 
-  console.log(form.watch());
+  const LogInAction = async (
+    data: LoginInput,
+    e?: React.BaseSyntheticEvent,
+  ) => {
+    e?.preventDefault();
+    setShowAlert(true);
 
-  // navigating to main page
-  let navigate = useNavigate();
-  const routeMain = () => {
-    navigate("/");
-  };
-
-  const LogIn = (e: any) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        alert("Account does not exist or invalid password");
-      });
-    routeMain();
+    try {
+      const userCredential = await LogIn(data.email, data.password);
+      console.log(userCredential.user);
+      // navigate back to main page
+      navigate("/", { replace: true });
+    } catch (error) {
+      setAlertMsg("error");
+      // console.log(error.message);
+      // alert(error.message);
+    }
   };
 
   return (
@@ -71,11 +70,16 @@ export const Login = () => {
         <Card className="w-[350px]">
           <CardHeader className="items-center pb-4">
             <CardTitle className="mb-1">Log In</CardTitle>
-            <CardDescription>Continue the journey with us here.</CardDescription>
+            <CardDescription>
+              Continue the journey with us here.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(LogIn)} className="space-y-3">
+              <form
+                onSubmit={form.handleSubmit(LogInAction)}
+                className="space-y-3"
+              >
                 <motion.div
                   className={cn("space-y-3 ", {
                     hidden: formPage === 1,
@@ -92,10 +96,9 @@ export const Login = () => {
                         <FormLabel className="text-black">Email</FormLabel>
                         <FormControl>
                           <Input
+                            {...form.register("email")}
                             placeholder="Enter your email..."
                             {...field}
-                            value={userEmail}
-                            onChange={(e) => setUserEmail(e.target.value)}
                           />
                         </FormControl>
                         <FormMessage />
@@ -112,11 +115,11 @@ export const Login = () => {
                         <FormLabel className="text-black">Password</FormLabel>
                         <FormControl>
                           <Input
+                            {...form.register("password")}
                             autoComplete="off"
                             {...field}
-                            value={userPassword}
-                            onChange={(e) => setUserPassword(e.target.value)}
                             placeholder="Password"
+                            type="password"
                           />
                         </FormControl>
                         <FormMessage />
@@ -155,6 +158,13 @@ export const Login = () => {
           </CardContent>
         </Card>
       </div>
+      {showAlert && (
+        <MyAlert
+          message={AlertMessages[alertMsg].message}
+          alertTitle={AlertMessages[alertMsg].alertTitle}
+          type={AlertMessages[alertMsg].type as MsgTypes}
+        ></MyAlert>
+      )}
     </div>
   );
 };

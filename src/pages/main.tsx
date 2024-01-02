@@ -7,7 +7,7 @@ function Main() {
     <div className="main">
       <Navbar />
       <div>
-        <Home></Home>
+        <Home />
       </div>
     </div>
   );

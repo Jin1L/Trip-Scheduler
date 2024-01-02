@@ -271,7 +271,7 @@ const SearchSection = () => {
                   )}
                 />
                 <div></div>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                   <Button type="submit" className="ml-56">
                     Submit
                   </Button>
