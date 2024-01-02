@@ -40,7 +40,7 @@ export const loginSchema = z.object({
     .min(1, { message: "email is required" })
     .includes("@")
     .email({ message: 'Invalid email: Ex: "@gmail.com"' }),
-    password: z
+  password: z
     .string()
     .min(6, { message: "password must be at least 6 character(s)" })
     .max(100),

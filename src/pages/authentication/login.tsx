@@ -46,7 +46,7 @@ export const Login = () => {
 
   const LogInAction = async (
     data: LoginInput,
-    e?: React.BaseSyntheticEvent
+    e?: React.BaseSyntheticEvent,
   ) => {
     e?.preventDefault();
     setShowAlert(true);
