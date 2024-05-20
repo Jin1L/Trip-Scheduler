@@ -32,8 +32,6 @@ code {
     monospace;
 }
 .App {
-  background-image: url(/static/media/wallpaper.188427425d85e107cd92.jpg);
-  background-repeat: no-repeat;
   background-size: 100%;
   height: 100vh;
   text-align: center;

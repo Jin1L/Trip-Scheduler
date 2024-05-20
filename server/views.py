@@ -12,7 +12,7 @@ from langchain.schema import SystemMessage
 
 def processInputAI(transportation: str = "public transit", location : str = "Montreal, Canada", start_date : str = "January 1 2024",
                 end_date : str = "January 14 2024", budget : str = "3000$", num_travelers : str = "1"):
-    ChatOpenAI.api_key = os.environ["OPENAI_API_KEY"]
+    api_key = os.environ["OPENAI_API_KEY"]
 
     example_prompt = """
     Based on the given information, here is a detailed recommendation for your trip to Montreal, Canada:
@@ -106,6 +106,7 @@ def processInputAI(transportation: str = "public transit", location : str = "Mon
     """
 
     llm = ChatOpenAI(
+        api_key=api_key,
         temperature=0.0,
         model="gpt-3.5-turbo-16k"
     )

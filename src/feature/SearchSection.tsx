@@ -109,7 +109,10 @@ const SearchSection = () => {
   }
   return (
     <>
-      <div className="relative mt-56">
+    <section>
+
+    </section>
+      {/* <div className="relative">
         <h2 className="mb-3 text-black font-semibold text-center text-xl">
           Make your trips come true
         </h2>
@@ -312,7 +315,7 @@ const SearchSection = () => {
             </Form>
           </Dialog>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -4,8 +4,9 @@ import "./main.css";
 
 function Main() {
   return (
-    <div className="main">
+    <div className="flex main">
       <Navbar />
+      <div className="h-screen border-r"></div>
       <div>
         <Home />
       </div>
