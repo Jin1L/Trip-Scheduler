@@ -46,7 +46,7 @@ export const Login = () => {
 
   const LogInAction = async (
     data: LoginInput,
-    e?: React.BaseSyntheticEvent,
+    e?: React.BaseSyntheticEvent
   ) => {
     e?.preventDefault();
     setShowAlert(true);
@@ -64,7 +64,7 @@ export const Login = () => {
   };
 
   return (
-    <div>
+    <div className="flex">
       <Navbar />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <Card className="w-[350px]">

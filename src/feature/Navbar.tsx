@@ -1,10 +1,17 @@
 import NavMenu from "./Navmenu";
+import { Footer } from "./Footer";
+
 const Navbar = () => {
   return (
-    <nav className="p-6 py-4 border-b-2 items-center justify-between space-x-6">
-      <h1 className="font-semibold text-black text-xl">WanderPlan</h1>
-      <NavMenu />
-    </nav>
+    <div className="h-screen flex flex-col justify-between">
+      <nav className="py-4 items-center h-5/6">
+        <div className="px-10 pt-4 flex justify-center">
+          <h1 className="font-semibold text-black text-xl">WanderPlan</h1>
+        </div>
+        <NavMenu />
+      </nav>
+      <Footer />
+    </div>
   );
 };
 
