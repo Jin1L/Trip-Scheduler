@@ -1,13 +1,12 @@
 import Navbar from "../feature/Navbar";
 import Home from "../feature/Home";
-import "./main.css";
 
 function Main() {
   return (
-    <div className="flex main">
+    <div className="flex w-full">
       <Navbar />
       <div className="h-screen border-r"></div>
-      <div>
+      <div className="w-full">
         <Home />
       </div>
     </div>

@@ -38,6 +38,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 import { useSearchValues } from "@/hooks/useSearchValues";
 import { useState } from "react";
+import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
   transportation: z.string(),
@@ -93,6 +94,7 @@ const SearchSection = () => {
   };
 
   function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log("hi");
     data.startDate = date?.from;
     data.endDate = date?.to;
 
@@ -108,22 +110,18 @@ const SearchSection = () => {
     sendData(data);
   }
   return (
-    <>
-    <section>
-
-    </section>
-      {/* <div className="relative">
-        <h2 className="mb-3 text-black font-semibold text-center text-xl">
-          Make your trips come true
-        </h2>
-        <div className="p-5 h-max w-auto rounded-md border shadow-md">
-          <Toaster />
-          <Dialog>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="h-[400px] w-full grid grid-cols-2 gap-4"
-              >
+    <section className="w-full">
+      <div className="mt-12 ml-10 mr-10">
+        <Label className="grid text-2xl font-bold">
+          Make Your Trips Come True
+        </Label>
+        <Label className="ml-1">What's your plan?</Label>
+      </div>
+      <div className="w-full mt-12 pl-10 pr-10">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+            <div className="flex w-full gap-3">
+              <div className="w-1/2">
                 <FormField
                   control={form.control}
                   name="transportation"
@@ -158,6 +156,8 @@ const SearchSection = () => {
                     </FormItem>
                   )}
                 />
+              </div>
+              <div className="w-1/2">
                 <FormField
                   control={form.control}
                   name="hotel"
@@ -196,6 +196,10 @@ const SearchSection = () => {
                     </FormItem>
                   )}
                 />
+              </div>
+            </div>
+            <div className="flex w-full gap-3 mt-7">
+              <div className="w-1/2">
                 <FormField
                   control={form.control}
                   name="location"
@@ -212,6 +216,8 @@ const SearchSection = () => {
                     </FormItem>
                   )}
                 />
+              </div>
+              <div className="w-1/2">
                 <FormField
                   control={form.control}
                   name="budget"
@@ -226,6 +232,10 @@ const SearchSection = () => {
                     </FormItem>
                   )}
                 />
+              </div>
+            </div>
+            <div className="flex w-full gap-3 mt-7">
+              <div className="w-1/2">
                 <FormField
                   control={form.control}
                   name="traveller"
@@ -257,6 +267,8 @@ const SearchSection = () => {
                     </FormItem>
                   )}
                 />
+              </div>
+              <div className="w-1/2">
                 <FormField
                   control={form.control}
                   name="date"
@@ -264,7 +276,7 @@ const SearchSection = () => {
                     <FormItem>
                       <FormLabel>Date</FormLabel>
                       <FormControl>
-                        <DatePickerWithRange className="mt-2.5" />
+                        <DatePickerWithRange className="mt-2.5 w-full" />
                       </FormControl>
                       <FormDescription>
                         When are you travelling?
@@ -273,50 +285,52 @@ const SearchSection = () => {
                     </FormItem>
                   )}
                 />
-                <div></div>
-                <DialogTrigger asChild>
-                  <Button type="submit" className="ml-56">
-                    Submit
-                  </Button>
+              </div>
+            </div>
+            <div className="flex w-full mt-7 justify-end">
+              <Dialog>
+                <DialogTrigger>
+                  <Button onClick={() => form.handleSubmit(onSubmit)()}>Submit</Button>
                 </DialogTrigger>
-              </form>
-              <DialogContent className="max-w-4xl">
-                <DialogHeader>
-                  <DialogTitle>Trip Recommendation</DialogTitle>
-                </DialogHeader>
-                <DialogDescription className="h-96 w-full">
-                  <ScrollArea className="h-full w-full whitespace-pre-line">
-                    {loading ? (
-                      <div>
-                        <Alert className="mt-28 ml-44 max-w-lg">
-                          <Loader2 className="flex animate-spin justify-center items-center h-5 w-5 -ml-1"></Loader2>
-                          <AlertTitle>Heads up!</AlertTitle>
-                          <AlertDescription>
-                            We are currently cooking your schedule for the trip!{" "}
-                            <br />
-                            Please be patient!
-                          </AlertDescription>
-                        </Alert>
-                      </div>
-                    ) : (
-                      <Typewriter
-                        words={[gptSuggestion]}
-                        loop={1}
-                        cursor
-                        cursorStyle="|"
-                        typeSpeed={5}
-                        deleteSpeed={50}
-                        delaySpeed={1000}
-                      />
-                    )}
-                  </ScrollArea>
-                </DialogDescription>
-              </DialogContent>
-            </Form>
-          </Dialog>
-        </div>
-      </div> */}
-    </>
+                <DialogContent className="max-w-4xl">
+                  <DialogHeader>
+                    <DialogTitle>Trip Recommendation</DialogTitle>
+                  </DialogHeader>
+                  <DialogDescription className="h-96 w-full">
+                    <ScrollArea className="h-full w-full whitespace-pre-line">
+                      {loading ? (
+                        <div>
+                          <Alert className="mt-28 ml-44 max-w-lg">
+                            <Loader2 className="flex animate-spin justify-center items-center h-5 w-5 -ml-1"></Loader2>
+                            <AlertTitle>Heads up!</AlertTitle>
+                            <AlertDescription>
+                              We are currently cooking your schedule for the
+                              trip! <br />
+                              Please be patient!
+                            </AlertDescription>
+                          </Alert>
+                        </div>
+                      ) : (
+                        <Typewriter
+                          words={[gptSuggestion]}
+                          loop={1}
+                          cursor
+                          cursorStyle="|"
+                          typeSpeed={5}
+                          deleteSpeed={50}
+                          delaySpeed={1000}
+                        />
+                      )}
+                    </ScrollArea>
+                  </DialogDescription>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </form>
+        </Form>
+      </div>
+      <Toaster />
+    </section>
   );
 };
 
