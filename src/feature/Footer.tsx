@@ -16,7 +16,7 @@ export const Footer = () => {
       <footer>
         <div className="px-8 py-6 flex justify-between">
           <Button variant="ghost" size="icon">
-            <a href="/login">
+            <a href="/login"> 
               <LogIn className="h-5 w-5" />
             </a>
           </Button>

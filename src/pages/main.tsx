@@ -5,7 +5,6 @@ function Main() {
   return (
     <div className="flex w-full">
       <Navbar />
-
       <div className="h-screen border-r"></div>
       <div className="w-full">
         <Home />

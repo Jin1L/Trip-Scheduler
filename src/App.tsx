@@ -3,7 +3,6 @@ import Main from "./pages/main";
 import { SignUp } from "./pages/authentication/SignUp";
 import { Login } from "./pages/authentication/login";
 import AuthRoute from "./components/AuthRoute";
-import Navbar from "./feature/Navbar";
 interface RouteProps {
   path: string;
   page: JSX.Element;

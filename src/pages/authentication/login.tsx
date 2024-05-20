@@ -63,11 +63,11 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <Navbar />
       <div className="h-screen border-r"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Card className="w-[350px]">
+      <div className="flex w-full justify-center">
+        <Card className="h-2/5 w-1/3 m-auto">
           <CardHeader className="items-center pb-4">
             <CardTitle className="mb-1">Log In</CardTitle>
             <CardDescription>
