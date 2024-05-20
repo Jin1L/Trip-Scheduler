@@ -41,11 +41,11 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
-  transportation: z.string(),
-  hotel: z.string(),
-  location: z.string(),
-  budget: z.string(),
-  traveller: z.string(),
+  transportation: z.string().min(1, { message: "It is required" }),
+  hotel: z.string().min(1, { message: "It is required" }),
+  location: z.string().min(1, { message: "It is required" }),
+  budget: z.string().min(1, { message: "It is required" }),
+  traveller: z.string().min(1, { message: "It is required" }),
   date: z.string().optional(),
   startDate: z.date().optional(),
   endDate: z.date().optional(),
@@ -94,7 +94,6 @@ const SearchSection = () => {
   };
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log("hi");
     data.startDate = date?.from;
     data.endDate = date?.to;
 
@@ -290,7 +289,9 @@ const SearchSection = () => {
             <div className="flex w-full mt-7 justify-end">
               <Dialog>
                 <DialogTrigger>
-                  <Button onClick={() => form.handleSubmit(onSubmit)()}>Submit</Button>
+                  <Button onClick={() => form.handleSubmit(onSubmit)()}>
+                    Submit
+                  </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl">
                   <DialogHeader>
