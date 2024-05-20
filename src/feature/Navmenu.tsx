@@ -5,7 +5,7 @@ export function NavMenu() {
     <>
       <div className="w-full pt-8">
         <div className="p-2 w-full h-5/6">
-          <Button className="w-full" variant="ghost" asChild>
+          <Button className="w-full" asChild>
             <a href="/">Main</a>
           </Button>
         </div>
