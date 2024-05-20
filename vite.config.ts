@@ -12,18 +12,6 @@ export default defineConfig({
       emitWarning: false,
     }),
   ],
-  build: {
-    rollupOptions: {
-      output: {
-        assetFileNames: (file) => {
-          return `assets/*.{css}`;
-        },
-        entryFileNames: (file) => {
-          return "assets/*.{js}";
-        },
-      },
-    },
-  },
   resolve: {
     alias: [
       {
